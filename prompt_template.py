@@ -6,16 +6,7 @@ from langchain.chains import LLMChain
 from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain, RouterOutputParser
 
-from langchain_core.messages import HumanMessage
-
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
-
-import os
-from openai import OpenAI
-
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv())
-openai_api_key = os.environ['OPENAI_API_KEY']
 
 faqs_template = """You are a very good at FAQs \
 You are great at answering questions about available ecommerce FAQS\
@@ -128,8 +119,3 @@ def initialize_model():
                             verbose=True
                             )
     return chain
-
-question_1 = "Tell me order process"
-chain = initialize_model()
-response_1 = chain.invoke({"input": [HumanMessage(content=question_1)]})
-print(f"Question: {question_1} \nAnswer: {response_1['text']}")

@@ -48,6 +48,3 @@ def load_docs():
     doc_ids = [str(uuid.uuid4()) for _ in docs]
 
     return doc_ids, docs
-
-doc_ids, docs = load_docs()
-print(doc_ids[0], docs[0])
