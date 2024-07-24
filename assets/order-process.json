@@ -1,0 +1,17 @@
+{
+  "steps": [
+    "Browse and select products",
+    "Add products to cart",
+    "Proceed to checkout",
+    "Enter shipping and billing information",
+    "Choose payment method",
+    "Review and confirm order",
+    "Order placed successfully"
+  ],
+  "payment_methods": [
+    "Credit/Debit Card",
+    "PayPal",
+    "Apple Pay",
+    "Google Pay"
+  ]
+}
