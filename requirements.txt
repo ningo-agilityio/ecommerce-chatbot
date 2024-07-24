@@ -9,4 +9,4 @@ langchain-openai==0.1.16
 langchain-text-splitters==0.2.2
 langchainhub==0.1.20
 langsmith==0.1.88
-uuid=1.30
+uuid==1.30
