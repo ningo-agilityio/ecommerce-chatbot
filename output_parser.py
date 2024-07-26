@@ -1,88 +1,63 @@
-# Solve issue from Chroma when using Streamlit
-__import__('pysqlite3')
-from operator import itemgetter
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+import json
+import re
+import langchain
+from typing import Any, Dict, Type
 
-import os
-import openai
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv())
-openai.api_key = os.environ['OPENAI_API_KEY']
+from langchain_core.exceptions import OutputParserException
+from langchain.chains.router.llm_router import OutputParserException
 
-# Langchain stuffs
-from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_chroma import Chroma
-from langchain_core.documents import Document
-from langchain.retrievers.multi_vector import MultiVectorRetriever
-from langchain_core.messages import HumanMessage
-from langchain.storage import InMemoryByteStore
+def parse_json_markdown(json_string: str) -> dict:
+        # Try to find JSON string within first and last triple backticks
+        match = re.search(r"""```       # match first occuring triple backticks
+                            (?:json)? # zero or one match of string json in non-capturing group
+                            (.*)```   # greedy match to last triple backticks""", json_string, flags=re.DOTALL|re.VERBOSE)
 
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+        # If no match found, assume the entire string is a JSON string
+        if match is None:
+            json_str = json_string
+        else:
+            # If match found, use the content within the backticks
+            json_str = match.group(1)
 
-from langchain_core.runnables.passthrough import (
-    RunnableParallel,
-)
-from langchain_core.runnables.base import RunnableLambda
+        # Strip whitespace and newlines from the start and end
+        json_str = json_str.strip()
+        if json_str.find("\`\`\`\n\`\`\`") != -1:
+            json_str = json_str.replace("\`\`\`\n\`\`\`", "\`\`\`")
 
+        # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
+        try:
+            return json.loads(json_str, strict=False)
+        except json.JSONDecodeError:
+            pass
+        
+class CustomizeRouterOutputParser(langchain.schema.BaseOutputParser[Dict[str, str]]):
+    """Parser for output of router chain int he multi-prompt chain."""
+    # expected_keys = ["destination", "next_inputs"]
 
-# Separated built-in modules
-from documents_loader import load_docs
-from prompt_template import initialize_model
+    default_destination: str = "DEFAULT"
+    next_inputs_type: Type = str
+    next_inputs_inner_key: str = "input"
 
-doc_ids, docs = load_docs()
-first_chain = initialize_model()
-# The storage layer for the parent documents
-store = InMemoryByteStore()
-id_key = "doc_id"
-question_1 = "What are payment methods"
-
-vectorstore = Chroma(
-    collection_name="full_documents", embedding_function=OpenAIEmbeddings()
-)
-
-# The retriever (empty to start)
-retriever = MultiVectorRetriever(
-    vectorstore=vectorstore,
-    byte_store=store,
-    id_key=id_key,
-)
-
-chain = (
-    {"doc": lambda x: x.page_content}
-    | ChatPromptTemplate.from_template("List down full content from doc and fix typo mistakes inside content :\n\n{doc}")
-    | ChatOpenAI(max_retries=0)
-    | StrOutputParser()
-)
-
-outputs_samples = chain.batch(docs, {"max_concurrency": 5})
-outputs_samples_docs = [
-    Document(page_content=s, metadata={id_key: doc_ids[i]})
-    for i, s in enumerate(outputs_samples)
-]
-retriever.vectorstore.add_documents(outputs_samples_docs)
-retriever.docstore.mset(list(zip(doc_ids, docs)))
-
-context_prompt = """Learn this context about faqs, order process, products information, returns and refunds and shipping information
-Context:
-{context}
-
-Question: {input}
-Result:"""
-
-def get_retriever(inputs):
-    sub_docs = vectorstore.similarity_search(inputs['input'])
-    return sub_docs
-
-prompt = ChatPromptTemplate.from_template(context_prompt)
-
-final_chain = RunnableParallel({
-    'context': RunnableLambda(get_retriever),
-    'input': itemgetter('input')
-}) | prompt | first_chain
-
-response_1 = final_chain.invoke({"input": question_1})
-print(f"Question: {question_1} \nAnswer: {response_1['text']}")
-
+    def parse(self, text: str) -> Dict[str, Any]:
+        try:
+            parsed = parse_json_markdown(text) ### this line is changed
+            if not isinstance(parsed["destination"], str):
+                raise ValueError("Expected 'destination' to be a string.")
+            if not isinstance(parsed["next_inputs"], self.next_inputs_type):
+                raise ValueError(
+                    f"Expected 'next_inputs' to be {self.next_inputs_type}."
+                )
+            parsed["next_inputs"] = {self.next_inputs_inner_key: parsed["next_inputs"]}
+            if (
+                parsed["destination"].strip().lower()
+                == self.default_destination.lower()
+            ):
+                parsed["destination"] = None
+            else:
+                parsed["destination"] = parsed["destination"].strip()
+            return parsed
+        except Exception as e:
+            raise OutputParserException(
+                f"Parsing text\n{text}\n raised following error:\n{e}"
+            )
+        

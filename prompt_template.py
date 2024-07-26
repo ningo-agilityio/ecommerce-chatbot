@@ -4,23 +4,22 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 from langchain.chains.router import MultiPromptChain
-from langchain.chains.router.llm_router import LLMRouterChain, RouterOutputParser
-
+from langchain.chains.router.llm_router import LLMRouterChain
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
+from output_parser import CustomizeRouterOutputParser
 
 faqs_template = """You are a very good at FAQs \
 You are great at answering questions about available ecommerce FAQS\
 and easy to understand manner. \
-When you don't know the answer to a question you admit\
+When you don't know the accurate answer to a question you admit\
 that you don't know.
 
 Here is a question:
 {input}"""
 
-
 order_process_template = """You are great at answering ecommerce order process questions. \
 You can list down step by step in order and mention about payment methods \
-then put them together to answer the broader question.
+then put them together to answer accurately the broader question.
 
 When you don't know the answer to a question you admit\
 that you don't know.
@@ -37,12 +36,11 @@ evaluate product information.
 Here is a question:
 {input}"""
 
-
 returns_and_refunds_template = """ You are a successful returns and refunds bot.\
 You have a passion for creativity, collaboration,\
 forward-thinking, confidence, strong problem-solving capabilities,\
 understanding of category, return window and condition, and excellent communication \
-skills. You are great at answering returns and refunds questions. \
+skills. You are great at answering accurately returns and refunds questions. \
 You are so good because you know how to solve a problem by \
 describing the solution in imperative steps. 
 
@@ -85,7 +83,6 @@ prompt_infos = [
     }
 ]
 
-
 def initialize_model():
     llm = ChatOpenAI(temperature=0.9, model="gpt-3.5-turbo")
 
@@ -109,7 +106,7 @@ def initialize_model():
     router_prompt = PromptTemplate(
         template=router_template,
         input_variables=["input"],
-        output_parser=RouterOutputParser(),
+        output_parser=CustomizeRouterOutputParser(),
     )
 
     router_chain = LLMRouterChain.from_llm(llm, router_prompt)
