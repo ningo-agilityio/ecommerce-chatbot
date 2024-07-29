@@ -2,7 +2,8 @@ import json
 import re
 import langchain
 from typing import Any, Dict, Type
-
+import html
+import ast
 from langchain_core.exceptions import OutputParserException
 from langchain.chains.router.llm_router import OutputParserException
 
@@ -21,14 +22,18 @@ def parse_json_markdown(json_string: str) -> dict:
 
         # Strip whitespace and newlines from the start and end
         json_str = json_str.strip()
-        if json_str.find("\`\`\`\n\`\`\`") != -1:
-            json_str = json_str.replace("\`\`\`\n\`\`\`", "\`\`\`")
-
+        p = re.compile('(?<!\\\\)\'')
+        clean_escape = p.sub('\"', json_str)
+        clean_escape = clean_escape.replace('\\"', '').replace("\\'", "'").replace("\"'", '')
+        formatted_str = ast.literal_eval(json.dumps(clean_escape))
+        # formatted_str = ast.literal_eval(json.dumps(html.unescape(clean_escape)))
         # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
-        try:
-            return json.loads(json_str, strict=False)
-        except json.JSONDecodeError:
-            pass
+        try: 
+            return json.loads(formatted_str)
+        except Exception as e:
+            raise OutputParserException(
+                f"Parsing parse_json_markdown \n raised following error:\n{e}"
+            )
         
 class CustomizeRouterOutputParser(langchain.schema.BaseOutputParser[Dict[str, str]]):
     """Parser for output of router chain int he multi-prompt chain."""

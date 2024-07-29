@@ -1,5 +1,7 @@
 from prompt_parser import initialize_chain
 import streamlit as st
+import time
+
 # import os
 # from openai import OpenAI
 from dotenv import load_dotenv
@@ -14,24 +16,9 @@ st.write(
 )
 
 def get_response(user_query, chat_history):
-    # template = """
-    # You are a helpful assistant. Answer the following questions considering the history of the conversation:
-
-    # Chat history: {chat_history}
-
-    # User question: {user_question}
-    # """
-
-    # prompt = ChatPromptTemplate.from_template(template)
-
-    # llm = ChatOpenAI()
-    
     chain = initialize_chain()
 
-    # response_1 = final_chain.invoke({"input": question_1})
-    # print(f"Question: {question_1} \nAnswer: {response_1['text']}")
-
-    return chain.stream({
+    return chain.invoke({
         "chat_history": chat_history,
         "input": user_query,
     })
@@ -60,11 +47,10 @@ if user_query is not None and user_query != "":
         st.markdown(user_query)
 
     with st.chat_message("AI"):
-        chain_response = get_response(user_query, st.session_state.chat_history)
-        # st.markdown(response.text)
-        print("chain_response")
-        print(chain_response)
-        response = st.write_stream(chain_response)
-        print("response")
-        print(response)
-    st.session_state.chat_history.append(AIMessage(content=response))
+        with st.spinner("Processing..."):
+            # response = call_steamship(prompt, context)
+            chain_response = get_response(user_query, st.session_state.chat_history)
+            st.markdown(chain_response['text'])
+        # response = st.write_stream(chain_response)
+    st.session_state.chat_history.append(AIMessage(content=chain_response['text']))
+    # st.session_state.chat_history.append(AIMessage(content=response))
