@@ -1,9 +1,9 @@
 # Solve issue from Chroma when using Streamlit
-__import__('pysqlite3')
-from operator import itemgetter
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
+from operator import itemgetter
 import os
 import openai
 from dotenv import load_dotenv, find_dotenv
@@ -32,57 +32,57 @@ from langchain_core.runnables.base import RunnableLambda
 from documents_loader import load_docs
 from prompt_template import initialize_model
 
-doc_ids, docs = load_docs()
-first_chain = initialize_model()
-# The storage layer for the parent documents
-store = InMemoryByteStore()
-id_key = "doc_id"
-question_1 = "What are payment methods"
+def initialize_chain():
+    doc_ids, docs = load_docs()
+    first_chain = initialize_model()
+    # The storage layer for the parent documents
+    store = InMemoryByteStore()
+    id_key = "doc_id"
+    # question_1 = "What are payment methods"
 
-context_prompt = """Learn this context about faqs, order process, products information, returns and refunds and shipping information
-Context:
-{context}
+    context_prompt = """Learn this context about faqs, order process, products information, returns and refunds and shipping information
+    Context:
+    {context}
 
-Question: {input}
-Result:"""
+    Chat history: {chat_history}
 
-vectorstore = Chroma(
-    collection_name="full_documents", embedding_function=OpenAIEmbeddings()
-)
+    Question: {input}
+    Result:"""
 
-# The retriever (empty to start)
-retriever = MultiVectorRetriever(
-    vectorstore=vectorstore,
-    byte_store=store,
-    id_key=id_key,
-)
+    vector_store = Chroma(
+        collection_name="full_documents", embedding_function=OpenAIEmbeddings()
+    )
 
-chain = (
-    {"doc": lambda x: x.page_content}
-    | ChatPromptTemplate.from_template("List down full content from doc and fix typo mistakes inside content :\n\n{doc}")
-    | ChatOpenAI(max_retries=0)
-    | StrOutputParser()
-)
+    # The retriever (empty to start)
+    retriever = MultiVectorRetriever(
+        vectorstore=vector_store,
+        byte_store=store,
+        id_key=id_key,
+    )
 
-outputs_samples = chain.batch(docs, {"max_concurrency": 5})
-outputs_samples_docs = [
-    Document(page_content=s, metadata={id_key: doc_ids[i]})
-    for i, s in enumerate(outputs_samples)
-]
-retriever.vectorstore.add_documents(outputs_samples_docs)
-retriever.docstore.mset(list(zip(doc_ids, docs)))
+    chain = (
+        {"doc": lambda x: x.page_content}
+        | ChatPromptTemplate.from_template("List down full content from doc and fix typo mistakes inside content :\n\n{doc}")
+        | ChatOpenAI(max_retries=0)
+        | StrOutputParser()
+    )
 
-def get_retriever(inputs):
-    sub_docs = vectorstore.similarity_search(inputs['input'])
-    return sub_docs
+    outputs_samples = chain.batch(docs, {"max_concurrency": 5})
+    outputs_samples_docs = [
+        Document(page_content=s, metadata={id_key: doc_ids[i]})
+        for i, s in enumerate(outputs_samples)
+    ]
+    retriever.vectorstore.add_documents(outputs_samples_docs)
+    retriever.docstore.mset(list(zip(doc_ids, docs)))
 
-prompt = ChatPromptTemplate.from_template(context_prompt)
+    def get_retriever(inputs):
+        sub_docs = vector_store.similarity_search(inputs['input'])
+        return sub_docs
 
-final_chain = RunnableParallel({
-    'context': RunnableLambda(get_retriever),
-    'input': itemgetter('input')
-}) | prompt | first_chain
+    prompt = ChatPromptTemplate.from_template(context_prompt)
 
-response_1 = final_chain.invoke({"input": question_1})
-print(f"Question: {question_1} \nAnswer: {response_1['text']}")
-
+    return RunnableParallel({
+        'context': RunnableLambda(get_retriever),
+        'input': itemgetter('input'),
+        'chat_history': itemgetter('chat_history'),
+    }) | prompt | first_chain

@@ -1,6 +1,11 @@
+from prompt_parser import initialize_chain
 import streamlit as st
-import os
-from openai import OpenAI
+# import os
+# from openai import OpenAI
+from dotenv import load_dotenv
+from langchain_core.messages import AIMessage, HumanMessage
+
+load_dotenv()
 
 # Show title and description.
 st.title("💬 Ecommerce Chatbot")
@@ -8,48 +13,58 @@ st.write(
     "This is a simple Ecommerce Chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
 )
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+def get_response(user_query, chat_history):
+    # template = """
+    # You are a helpful assistant. Answer the following questions considering the history of the conversation:
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+    # Chat history: {chat_history}
 
-    # Create a session state variable to store the chat messages. This ensures that the
-    # messages persist across reruns.
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    # User question: {user_question}
+    # """
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+    # prompt = ChatPromptTemplate.from_template(template)
 
-    # Create a chat input field to allow the user to enter a message. This will display
-    # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
+    # llm = ChatOpenAI()
+    
+    chain = initialize_chain()
 
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+    # response_1 = final_chain.invoke({"input": question_1})
+    # print(f"Question: {question_1} \nAnswer: {response_1['text']}")
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+    return chain.stream({
+        "chat_history": chat_history,
+        "input": user_query,
+    })
 
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+# session state
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        AIMessage(content="Hello, I am an e-commerce chatbot. How can I help you?"),
+    ]
+
+# conversation
+for message in st.session_state.chat_history:
+    if isinstance(message, AIMessage):
+        with st.chat_message("AI"):
+            st.write(message.content)
+    elif isinstance(message, HumanMessage):
+        with st.chat_message("Human"):
+            st.write(message.content)
+
+# user input
+user_query = st.chat_input("Type your message here...")
+if user_query is not None and user_query != "":
+    st.session_state.chat_history.append(HumanMessage(content=user_query))
+
+    with st.chat_message("Human"):
+        st.markdown(user_query)
+
+    with st.chat_message("AI"):
+        chain_response = get_response(user_query, st.session_state.chat_history)
+        # st.markdown(response.text)
+        print("chain_response")
+        print(chain_response)
+        response = st.write_stream(chain_response)
+        print("response")
+        print(response)
+    st.session_state.chat_history.append(AIMessage(content=response))
