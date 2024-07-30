@@ -5,6 +5,7 @@
 
 from operator import itemgetter
 import os
+from typing import Any, Optional
 import openai
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
@@ -16,17 +17,16 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain.retrievers.multi_vector import MultiVectorRetriever
-from langchain_core.messages import HumanMessage
 from langchain.storage import InMemoryByteStore
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 from langchain_core.runnables.passthrough import (
-    RunnableParallel,
+    # RunnableParallel,
+    RunnablePassthrough
 )
 from langchain_core.runnables.base import RunnableLambda
-
 
 # Separated built-in modules
 from documents_loader import load_docs
@@ -38,15 +38,15 @@ def initialize_chain():
     # The storage layer for the parent documents
     store = InMemoryByteStore()
     id_key = "doc_id"
-    # question_1 = "What are payment methods"
 
     context_prompt = """Learn this context about faqs, order process, products information, returns and refunds and shipping information
     Context:
     {context}
-
+    
     Chat history: {chat_history}
 
-    Question: {input}
+    Question: 
+    {input}
     Result:"""
 
     vector_store = Chroma(
@@ -62,7 +62,7 @@ def initialize_chain():
 
     chain = (
         {"doc": lambda x: x.page_content}
-        | ChatPromptTemplate.from_template("List down full content from doc and fix typo mistakes inside content :\n\n{doc}")
+        | ChatPromptTemplate.from_template("{doc}")
         | ChatOpenAI(max_retries=0)
         | StrOutputParser()
     )
@@ -77,12 +77,10 @@ def initialize_chain():
 
     def get_retriever(inputs):
         sub_docs = vector_store.similarity_search(inputs['input'])
-        return sub_docs
+        context_content = [f"{doc.page_content}" for doc in sub_docs]
+        return ("\n".join(context_content)).replace('"', "\'")
 
+    # Context prompt
     prompt = ChatPromptTemplate.from_template(context_prompt)
 
-    return RunnableParallel({
-        'context': RunnableLambda(get_retriever),
-        'input': itemgetter('input'),
-        'chat_history': itemgetter('chat_history'),
-    }) | prompt | first_chain
+    return RunnablePassthrough.assign(context=RunnableLambda(lambda x: get_retriever(x))) | prompt | first_chain

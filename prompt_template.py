@@ -1,12 +1,21 @@
+from typing import Any, Dict, List
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
+from langchain import hub
 from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
 from output_parser import CustomizeRouterOutputParser
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_community.tools import WikipediaQueryRun
+from langchain_community.utilities import WikipediaAPIWrapper
+
+api_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=100)
+tool = WikipediaQueryRun(api_wrapper=api_wrapper)
+tools = [tool]
+hub_prompt = hub.pull("hwchase17/react")
 
 faqs_template = """You are a very good at FAQs \
 You are great at answering questions about available ecommerce FAQS\
@@ -47,8 +56,8 @@ describing the solution in imperative steps.
 Here is a question:
 {input}"""
 
-shipping_info_template = """ You are an execellent shipping information assistant.\
-You have a good knowlegde about shipping information. You are great at answering shipping questions. \
+shipping_info_template = """ You are an excellent shipping information assistant.\
+You have a good knowledge about shipping information. You are great at answering shipping questions. \
 You are so great to break down shipping options, shipping carriers and when will be free shipping and then put them together \
 in the answer 
 
@@ -83,6 +92,27 @@ prompt_infos = [
     }
 ]
 
+class CustomAgentExecutor(AgentExecutor):
+    @property
+    def output_keys(self) -> List[str]:
+        return ["text"]
+
+    def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
+        result = super().run(input, **kwargs)
+        return {"text": result["output"]}
+
+class AgentLLMChain(LLMChain):
+    def __init__(self, agent_executor: AgentExecutor, **kwargs: Any):
+        super().__init__(**kwargs)
+        self.agent_executor = agent_executor
+
+    def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
+        return self.agent_executor.run(input, **kwargs)
+
+def _handle_error(error) -> str:
+    print("_handle_error")
+    return str(error)[:50]
+
 def initialize_model():
     llm = ChatOpenAI(temperature=0.9, model="gpt-3.5-turbo")
 
@@ -91,8 +121,8 @@ def initialize_model():
         name = p_info["name"]
         prompt_template = p_info["prompt_template"]
         prompt = ChatPromptTemplate.from_template(template=prompt_template)
-        chain = LLMChain(llm=llm, prompt=prompt)
-        destination_chains[name] = chain  
+        first_chain = LLMChain(llm=llm, prompt=prompt)
+        destination_chains[name] = first_chain  
         
     destinations = [f"{p['name']}: {p['description']}" for p in prompt_infos]
     destinations_str = "\n".join(destinations)

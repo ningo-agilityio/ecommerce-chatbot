@@ -15,9 +15,10 @@ st.write(
     "This is a simple Ecommerce Chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
 )
 
-def get_response(user_query, chat_history):
-    chain = initialize_chain()
 
+def get_response(user_query, chat_history):
+    # Refactor here to make invoke faster
+    chain = initialize_chain()
     return chain.invoke({
         "chat_history": chat_history,
         "input": user_query,
