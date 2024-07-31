@@ -23,7 +23,6 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 from langchain_core.runnables.passthrough import (
-    # RunnableParallel,
     RunnablePassthrough
 )
 from langchain_core.runnables.base import RunnableLambda
@@ -78,7 +77,8 @@ def initialize_chain():
     def get_retriever(inputs):
         sub_docs = vector_store.similarity_search(inputs['input'])
         context_content = [f"{doc.page_content}" for doc in sub_docs]
-        return ("\n".join(context_content)).replace('"', "\'")
+        # return ("\n".join(context_content)).replace('"', "\'")
+        return ("\n".join(context_content))
 
     # Context prompt
     prompt = ChatPromptTemplate.from_template(context_prompt)

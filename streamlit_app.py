@@ -15,7 +15,6 @@ st.write(
     "This is a simple Ecommerce Chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
 )
 
-
 def get_response(user_query, chat_history):
     # Refactor here to make invoke faster
     chain = initialize_chain()
@@ -52,6 +51,6 @@ if user_query is not None and user_query != "":
             # response = call_steamship(prompt, context)
             chain_response = get_response(user_query, st.session_state.chat_history)
             st.markdown(chain_response['text'])
-        # response = st.write_stream(chain_response)
+            # response = st.write_stream(chain_response)
     st.session_state.chat_history.append(AIMessage(content=chain_response['text']))
     # st.session_state.chat_history.append(AIMessage(content=response))

@@ -11,6 +11,7 @@ from output_parser import CustomizeRouterOutputParser
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_community.tools import WikipediaQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper
+from langchain_core.output_parsers import StrOutputParser
 
 api_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=100)
 tool = WikipediaQueryRun(api_wrapper=api_wrapper)
@@ -101,13 +102,15 @@ class CustomAgentExecutor(AgentExecutor):
         result = super().run(input, **kwargs)
         return {"text": result["output"]}
 
-class AgentLLMChain(LLMChain):
-    def __init__(self, agent_executor: AgentExecutor, **kwargs: Any):
-        super().__init__(**kwargs)
-        self.agent_executor = agent_executor
+# class AgentLLMChain(LLMChain):
+#     agent_executor: AgentExecutor
 
-    def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
-        return self.agent_executor.run(input, **kwargs)
+#     def __init__(self, agent_executor: AgentExecutor, **kwargs: Any):
+#         self.agent_executor = agent_executor
+#         super().__init__(**kwargs)
+
+#     def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
+#         return self.agent_executor.run(input, **kwargs)
 
 def _handle_error(error) -> str:
     print("_handle_error")
@@ -115,6 +118,8 @@ def _handle_error(error) -> str:
 
 def initialize_model():
     llm = ChatOpenAI(temperature=0.9, model="gpt-3.5-turbo")
+    # default_prompt = ChatPromptTemplate.from_template("{input}")
+    # default_chain = default_prompt | llm | StrOutputParser()
 
     destination_chains = {}
     for p_info in prompt_infos:
@@ -122,13 +127,17 @@ def initialize_model():
         prompt_template = p_info["prompt_template"]
         prompt = ChatPromptTemplate.from_template(template=prompt_template)
         first_chain = LLMChain(llm=llm, prompt=prompt)
-        destination_chains[name] = first_chain  
+        # Error: Agent executor doesn't work with MultiPromptChain
+        # agent_executor = CustomAgentExecutor(
+        #     agent=create_react_agent(first_chain, tools, hub_prompt),
+        #     tools=tools,
+        #     verbose=True,
+        #     handle_parsing_errors=_handle_error
+        # )
+        destination_chains[name] = first_chain
         
     destinations = [f"{p['name']}: {p['description']}" for p in prompt_infos]
     destinations_str = "\n".join(destinations)
-
-    default_prompt = ChatPromptTemplate.from_template("{input}")
-    default_chain = LLMChain(llm=llm, prompt=default_prompt)
 
     router_template = MULTI_PROMPT_ROUTER_TEMPLATE.format(
         destinations=destinations_str
@@ -142,7 +151,7 @@ def initialize_model():
     router_chain = LLMRouterChain.from_llm(llm, router_prompt)
     chain = MultiPromptChain(router_chain=router_chain, 
                             destination_chains=destination_chains, 
-                            default_chain=default_chain, 
+                            default_chain=destination_chains['faqs'], 
                             verbose=True
                             )
     return chain

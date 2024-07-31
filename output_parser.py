@@ -20,15 +20,16 @@ def parse_json_markdown(json_string: str) -> dict:
         # Strip whitespace and newlines from the start and end
         json_str = json_str.strip()
        
-        print("after format")
-        print(json_str)
+        # print("after format")
+        # print(json_str)
         # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
         try: 
             return json.loads(json_str)
         except Exception as e:
-            raise OutputParserException(
-                f"Parsing parse_json_markdown \n raised following error:\n{e}"
-            )
+            print(f"Parsing parse_json_markdown\n{json_str}\n raised following error:\n{e}")
+            # raise OutputParserException(
+            #     f"Parsing parse_json_markdown \n raised following error:\n{e}"
+            # )
         
 class CustomizeRouterOutputParser(langchain.schema.BaseOutputParser[Dict[str, str]]):
     """Parser for output of router chain int he multi-prompt chain."""

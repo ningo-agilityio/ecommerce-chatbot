@@ -7,6 +7,27 @@ from langchain_core.runnables import (
     RunnableSerializable,
 )
 
+class CustomAgentExecutor(AgentExecutor):
+    @property
+    def output_keys(self) -> List[str]:
+        return ["text"]
+
+    def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
+        result = super().run(input, **kwargs)
+        return {"text": result["output"]}
+
+class AgentLLMChain(LLMChain):
+    def __init__(self, agent_executor: AgentExecutor, **kwargs: Any):
+        super().__init__(**kwargs)
+        self.agent_executor = agent_executor
+
+    def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
+        return self.agent_executor.run(input, **kwargs)
+
+def _handle_error(error) -> str:
+    print("_handle_error")
+    return str(error)[:50]
+
 # agent = create_react_agent(first_chain, tools, hub_prompt)
 # agent_executor = AgentExecutor(
 #     agent=agent,
