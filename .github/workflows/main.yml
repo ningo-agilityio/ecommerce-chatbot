@@ -15,7 +15,7 @@ jobs:
       - uses: promptfoo/promptfoo-action@v1
         with:
           # Github Token, used to add comments to the PR
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
           # List of prompt files to watch
           prompts: 'tests/**'
           # Path to a promptfoo config file
