@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce-chatbot",
+  "version": "1.0.0",
+  "description": "A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npx promptfoo@latest eval -o output.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promptfoo": "^0.73.9"
+  }
+}

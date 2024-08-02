@@ -1,0 +1,16 @@
+prompts:
+  - id: file://prompts/prompt.txt
+    label: gpt_chat_prompt
+
+providers: [openai:gpt-3.5-turbo]
+defaultTest:
+  vars:
+    system_message: Answer concisely
+    messages:
+      - user: How do I track my order?
+      - assistant: You can track your order by clicking on the "Track Order" link in the order confirmation email or by logging into your account on our website and navigating to the "Orders" section.
+      - user: Give me shipping info
+      - assistant: "Shipping Options: - Standard Shipping (5-7 business days) - Expedited Shipping (2-3 business days) - Next-Day Shipping (1 business day)"
+
+tests:
+  - normal_test.yaml

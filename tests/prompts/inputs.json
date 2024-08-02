@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "You are a helpful e-commerce chatbot assistant"
+  },
+  {
+    "role": "user",
+    "content": "{{ input }}"
+  },
+  {
+    "role": "assistant",
+    "content": "{{ output }}"
+  }
+]
