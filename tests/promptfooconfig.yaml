@@ -1,8 +1,12 @@
 prompts:
   - id: file://prompts/prompt.txt
     label: gpt_chat_prompt
-
-providers: [openai:gpt-3.5-turbo]
+# default: openai:chat:gpt-4o-mini
+providers: [openai:chat:gpt-3.5-turbo]
+# - id: openai:gpt-4o-mini
+#     config:
+#       temperature: 0
+#       max_tokens: 1024
 defaultTest:
   vars:
     system_message: Answer concisely

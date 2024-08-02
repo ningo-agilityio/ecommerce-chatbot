@@ -5,9 +5,9 @@ on:
       - main
     paths:
       - 'tests/**'
-  pull_request:
-    paths:
-      - 'tests/**'
+  # pull_request:
+  #   paths:
+  #     - 'tests/**'
 jobs:
   evaluate:
     runs-on: ubuntu-latest
