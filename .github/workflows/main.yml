@@ -21,19 +21,12 @@ jobs:
           fetch-depth: 0
       - run: git init
 
-      - uses: jenseng/dynamic-uses@v1
-        with:
-          # now you can use expressions 🥳
-          # uses: actions/setup-node@22.2.0
-          # the `with` needs to be converted to a valid json string
-          with: '{ "node-version": 18 }'
-
       # You may pin to the exact commit or the version.
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
         with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          openai-api-key: sk-proj-Vn3tkD30M9oOAtyQOdcPT3BlbkFJ517USWrAfWGyiHTUJyQi
+          github-token: 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
           prompts: 'tests/**'
           config: 'tests/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
