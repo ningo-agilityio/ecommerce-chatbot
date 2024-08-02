@@ -10,11 +10,17 @@ on:
       - 'tests/**'
 jobs:
   evaluate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:latest
     permissions:
       contents: read # Required for actions/checkout
       pull-requests: write # Ability to post comments on Pull Requests
     steps:
+      # Required for promptfoo-action's git usage
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git init
+
       # You may pin to the exact commit or the version.
       - uses: promptfoo/promptfoo-action@v1
         with:
