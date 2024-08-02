@@ -27,7 +27,7 @@ jobs:
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          prompts: 'tests/**'
+          prompts: 'tests/normal_test.yaml'
           config: 'tests/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
 
