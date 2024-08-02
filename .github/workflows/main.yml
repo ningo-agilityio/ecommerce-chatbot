@@ -24,22 +24,18 @@ jobs:
       - uses: jenseng/dynamic-uses@v1
         with:
           # now you can use expressions 🥳
-          uses: actions/setup-node@${{ inputs.version }}
+          # uses: actions/setup-node@22.2.0
           # the `with` needs to be converted to a valid json string
           with: '{ "node-version": 18 }'
 
       # You may pin to the exact commit or the version.
-      - uses: promptfoo/promptfoo-action@v1
+      - name: Run promptfoo evaluation
+        uses: promptfoo/promptfoo-action@v1
         with:
-          # Github Token, used to add comments to the PR
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
-          # List of prompt files to watch
-          prompts: 'tests/**'
-          # Path to a promptfoo config file
-          config: 'tests/promptfooconfig.yaml'
-          # Path to cache directory
-          cache-path: ~/.cache/promptfoo
-          # OpenAI API Key
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          prompts: 'tests/**'
+          config: 'tests/promptfooconfig.yaml'
+          cache-path: ~/.cache/promptfoo
 
           
