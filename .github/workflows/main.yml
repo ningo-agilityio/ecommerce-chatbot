@@ -1,5 +1,10 @@
 name: 'Prompt Evaluation'
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tests/**'
   pull_request:
     paths:
       - 'tests/**'
@@ -11,7 +16,6 @@ jobs:
       pull-requests: write # Ability to post comments on Pull Requests
     steps:
       # You may pin to the exact commit or the version.
-      # uses: promptfoo/promptfoo-action@831a73deccc6a4a0ce91e671a511a6e70fa52349
       - uses: promptfoo/promptfoo-action@v1
         with:
           # Github Token, used to add comments to the PR
