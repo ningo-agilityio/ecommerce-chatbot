@@ -25,8 +25,8 @@ jobs:
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
         with:
-          openai-api-key: sk-proj-Vn3tkD30M9oOAtyQOdcPT3BlbkFJ517USWrAfWGyiHTUJyQi
-          github-token: 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
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           prompts: 'tests/**'
           config: 'tests/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
