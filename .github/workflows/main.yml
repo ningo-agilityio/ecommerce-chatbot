@@ -29,7 +29,7 @@ jobs:
           # List of prompt files to watch
           prompts: 'tests/**'
           # Path to a promptfoo config file
-          config: 'prompts/promptfooconfig.yaml'
+          config: 'tests/promptfooconfig.yaml'
           # Path to cache directory
           cache-path: ~/.cache/promptfoo
           # OpenAI API Key
