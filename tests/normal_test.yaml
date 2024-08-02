@@ -1,7 +1,7 @@
 - description: Question about FAQs
   vars:
     question: Tell me about faqs about payment methods
-    context: file://docs/reimbursement.md
+    # context: file://docs/reimbursement.md
   assert:
     - type: contains
       value: payment methods
