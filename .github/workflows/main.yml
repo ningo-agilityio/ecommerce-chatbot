@@ -21,6 +21,13 @@ jobs:
           fetch-depth: 0
       - run: git init
 
+      - uses: jenseng/dynamic-uses@v1
+        with:
+          # now you can use expressions 🥳
+          uses: actions/setup-node@${{ inputs.version }}
+          # the `with` needs to be converted to a valid json string
+          with: '{ "node-version": 18 }'
+
       # You may pin to the exact commit or the version.
       - uses: promptfoo/promptfoo-action@v1
         with:
