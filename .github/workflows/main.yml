@@ -10,7 +10,7 @@ on:
       - 'tests/**'
 jobs:
   evaluate:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read # Required for actions/checkout
       pull-requests: write # Ability to post comments on Pull Requests
