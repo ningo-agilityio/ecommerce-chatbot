@@ -1,13 +1,13 @@
 name: 'Prompt Evaluation'
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'tests/**'
-  # pull_request:
+  # push:
+  #   branches:
+  #     - main
   #   paths:
   #     - 'tests/**'
+  pull_request:
+    paths:
+      - 'tests/**'
 jobs:
   evaluate:
     runs-on: ubuntu-latest
