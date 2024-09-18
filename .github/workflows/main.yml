@@ -7,7 +7,7 @@ on:
   #     - 'tests/**'
   pull_request:
     paths:
-      - 'tests/**'
+      - 'tests/e-commerce/**'
 jobs:
   evaluate:
     runs-on: ubuntu-latest
@@ -27,8 +27,8 @@ jobs:
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          prompts: 'tests/normal_test.yaml'
-          config: 'tests/promptfooconfig.yaml'
+          prompts: 'tests/e-commerce/normal_test.yaml'
+          config: 'tests/e-commerce/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
 
           
