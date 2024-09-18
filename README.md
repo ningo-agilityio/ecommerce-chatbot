@@ -12,8 +12,26 @@ A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
    $ pip install -r requirements.txt
    ```
 
-2. Run the app
+2. To activate conda environment, from root folder:
+
+   ```
+   $ conda activate ecommerce-chatbot
+   ```
+
+3. To run the app, from root folder:
 
    ```
    $ streamlit run streamlit_app.py
+   ```
+
+4. To run test:
+- For e-commerce app:
+   ```
+   $ cd tests/e-commerce
+   $ npm run test-ecommerce
+   ```
+- For translation app:
+   ```
+   $ cd tests/translation
+   $ npm run test-translation
    ```
