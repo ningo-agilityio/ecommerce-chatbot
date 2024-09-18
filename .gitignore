@@ -164,3 +164,6 @@ cython_debug/
 #.idea/
 
 tests/node_modules
+**/node_modules
+**/e-commerce-output.html
+**/translation-output.html
