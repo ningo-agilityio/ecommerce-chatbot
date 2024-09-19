@@ -1,3 +1,19 @@
+assertionTemplates:
+  similarHelloWorld:
+    type: similar
+    value: '{{expectedHelloWorld}}'
+    threshold: 0.90
+    metric: Tone
+  similarMorning:
+    type: similar
+    value: '{{expectedGoodMorning}}'
+    threshold: 0.5
+    metric: Tone
+  similarHowAreYou:
+    type: similar
+    value: '{{expectedHowAreYou}}'
+    threshold: 0.7
+    metric: Tone
 prompts:
   - id: file://prompts/translations.txt
     label: gpt_chat_prompt
@@ -24,20 +40,14 @@ scenarios:
         vars:
           input: 'Hello world'
         assert:
-          - type: similar
-            value: '{{expectedHelloWorld}}'
-            threshold: 0.90
+          - $ref: "#/assertionTemplates/similarHelloWorld"
       - description: Translated Good Morning
         vars:
           input: 'Good morning'
         assert:
-          - type: similar
-            value: '{{expectedGoodMorning}}'
-            threshold: 0.90
+          - $ref: "#/assertionTemplates/similarMorning"
       - description: Translated How are you?
         vars:
           input: 'How are you?'
         assert:
-          - type: similar
-            value: '{{expectedHowAreYou}}'
-            threshold: 0.90
+          - $ref: "#/assertionTemplates/similarHowAreYou"
