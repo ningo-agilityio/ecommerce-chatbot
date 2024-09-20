@@ -7,11 +7,11 @@ from langchain import hub
 from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
-from output_parser import CustomizeRouterOutputParser
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_community.tools import WikipediaQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper
 from langchain_core.output_parsers import StrOutputParser
+from chatbot.output_parser import CustomizeRouterOutputParser
 
 api_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=100)
 tool = WikipediaQueryRun(api_wrapper=api_wrapper)

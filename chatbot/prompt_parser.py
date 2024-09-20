@@ -28,8 +28,8 @@ from langchain_core.runnables.passthrough import (
 from langchain_core.runnables.base import RunnableLambda
 
 # Separated built-in modules
-from documents_loader import load_docs
-from prompt_template import initialize_model
+from chatbot.documents_loader import load_docs
+from chatbot.prompt_template import initialize_model
 
 def initialize_chain():
     doc_ids, docs = load_docs()

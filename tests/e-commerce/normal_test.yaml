@@ -5,11 +5,6 @@
   assert:
     - type: contains
       value: payment methods
-    # - type: answer-relevance
-    #   threshold: 0.9
-    #   value: ..
-    # - type: python
-    #   value: file://relative/path/to/script.py
 - description: Question about order process
   vars:
     question: Tell me about order process?
