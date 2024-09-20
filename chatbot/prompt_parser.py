@@ -7,9 +7,9 @@ from operator import itemgetter
 import os
 from typing import Any, Optional
 import openai
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv())
-openai.api_key = os.environ['OPENAI_API_KEY']
+# from dotenv import load_dotenv, find_dotenv
+# _ = load_dotenv(find_dotenv())
+# openai.api_key = os.environ['OPENAI_API_KEY']
 
 # Langchain stuffs
 from langchain_core.documents import Document
