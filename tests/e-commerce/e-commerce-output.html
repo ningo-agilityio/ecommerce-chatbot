@@ -49,10 +49,10 @@
         
         <th>question</th>
         
-        <th>[openai:gpt-3.5-turbo] gpt_chat_prompt: prompts/prompt.txt: You're an ecommerce chat assistant for a shoe shop.
+        <th>[Chatbot Python script] gpt_chat_prompt: prompts/prompt.txt: You're an ecommerce chat assistant for a shoe shop.
 Answer this user's question: {{name}}: "{{question}}"</th>
         
-        <th>[openai:gpt-3.5-turbo] gpt_chat_prompt: prompts/prompt.txt: You're a smart, bubbly chat assistant for a shoe shop.
+        <th>[Chatbot Python script] gpt_chat_prompt: prompts/prompt.txt: You're a smart, bubbly chat assistant for a shoe shop.
 Answer this user's question: {{name}}: "{{question}}"</th>
         
       </thead>
@@ -66,73 +66,305 @@ Answer this user's question: {{name}}: "{{question}}"</th>
           
           <td data-content="Tell me about faqs about payment methods">Tell me about faqs about payment methods</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-Sure! Here are some frequently asked questions about payment methods:
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. What payment methods do you accept?
-2. Do you accept credit cards?
-3. Can I pay with PayPal?
-4. Are there any additional fees for using certain payment methods?
-5. Can I pay with a gift card or store credit?
-6. Is my payment information secure when shopping on your website?
-7. Do you offer payment plans or installment options?
-8. How do I know if my payment went through successfully?
-9. Can I change my payment method after placing an order?
-10. What currencies do you accept for payment?
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Sure! Here are some frequently asked questions about payment methods:
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. What payment methods do you accept?
-2. Do you accept credit cards?
-3. Can I pay with PayPal?
-4. Are there any additional fees for using certain payment methods?
-5. Can I pay with a gift card or store credit?
-6. Is my payment information secure when shopping on your website?
-7. Do you offer payment plans or installment options?
-8. How do I know if my payment went through successfully?
-9. Can I change my payment method after placing an order?
-10. What currencies do you accept for payment?
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed</td>
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-Sure! Here are some frequently asked questions about payment methods at our shoe shop:
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. What payment methods do you accept?
-2. Do you accept credit/debit cards?
-3. Can I pay with cash in-store?
-4. Do you offer payment plans or financing options?
-5. Is it safe to enter my credit card information on your website?
-6. Can I use a gift card to make a purchase?
-7. Do you accept mobile payment options like Apple Pay or Google Pay?
-8. Are there any fees associated with certain payment methods?
-9. Can I split my payment between multiple cards?
-10. Do you offer any discounts for specific payment methods?
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-I hope this answers your question! Let me know if you have any other inquiries.
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sure! Here are some frequently asked questions about payment methods at our shoe shop:
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. What payment methods do you accept?
-2. Do you accept credit/debit cards?
-3. Can I pay with cash in-store?
-4. Do you offer payment plans or financing options?
-5. Is it safe to enter my credit card information on your website?
-6. Can I use a gift card to make a purchase?
-7. Do you accept mobile payment options like Apple Pay or Google Pay?
-8. Are there any fees associated with certain payment methods?
-9. Can I split my payment between multiple cards?
-10. Do you offer any discounts for specific payment methods?
-
-I hope this answers your question! Let me know if you have any other inquiries.
-
-Pass Reason: All assertions passed</td>
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
         </tr>
         
@@ -144,25 +376,305 @@ Pass Reason: All assertions passed</td>
           
           <td data-content="Tell me about order process?">Tell me about order process?</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-Our order process is very simple and user-friendly. Once you have selected the shoes you want to purchase, you can add them to your cart and proceed to checkout. At checkout, you will need to provide your shipping address and payment information. Once your order is confirmed, you will receive an email with your order details and a confirmation number. Your shoes will then be shipped out to you using your selected shipping method. If you have any questions or need assistance during the ordering process, feel free to reach out to our customer service team for help.
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Our order process is very simple and user-friendly. Once you have selected the shoes you want to purchase, you can add them to your cart and proceed to checkout. At checkout, you will need to provide your shipping address and payment information. Once your order is confirmed, you will receive an email with your order details and a confirmation number. Your shoes will then be shipped out to you using your selected shipping method. If you have any questions or need assistance during the ordering process, feel free to reach out to our customer service team for help.
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Pass Reason: All assertions passed</td>
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-Hello! I&#39;d be happy to explain the order process to you. When you find the shoes you&#39;d like to purchase on our website or in our store, you simply add them to your cart and proceed to checkout. During checkout, you&#39;ll provide your shipping and payment information. Once your order is confirmed, we&#39;ll process it and send you a confirmation email with your order details and estimated delivery date. If you have any questions or need assistance at any point during the ordering process, feel free to reach out to our customer service team for help.
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Hello! I'd be happy to explain the order process to you. When you find the shoes you'd like to purchase on our website or in our store, you simply add them to your cart and proceed to checkout. During checkout, you'll provide your shipping and payment information. Once your order is confirmed, we'll process it and send you a confirmation email with your order details and estimated delivery date. If you have any questions or need assistance at any point during the ordering process, feel free to reach out to our customer service team for help.
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Pass Reason: All assertions passed</td>
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
         </tr>
         
@@ -174,25 +686,305 @@ Pass Reason: All assertions passed</td>
           
           <td data-content="Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com">Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-I apologize for the inconvenience, but as an ecommerce chat assistant, I do not have access to specific order information. Please contact our customer service team directly at support@shoeshop.com with your order number and email address, and they will be able to provide you with the shipping information you need. Thank you for your understanding.
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-I apologize for the inconvenience, but as an ecommerce chat assistant, I do not have access to specific order information. Please contact our customer service team directly at support@shoeshop.com with your order number and email address, and they will be able to provide you with the shipping information you need. Thank you for your understanding.
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Pass Reason: All assertions passed</td>
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
-          <td data-content="[PASS] (1.00)
+          <td data-content="[FAIL] (0.00)
 
-Hello John! Thank you for providing your order number and email address. I will be happy to assist you with your shipping information. Let me quickly pull up your order details. Give me a moment.
+  Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pass Reason: All assertions passed">[PASS] (1.00)
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Hello John! Thank you for providing your order number and email address. I will be happy to assist you with your shipping information. Let me quickly pull up your order details. Give me a moment.
+Error: Error running Python script: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+Stack Trace: Error: AttributeError: module &#39;chatbot_wrapper&#39; has no attribute &#39;call_api&#39;
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.&lt;anonymous&gt; (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 35, in &lt;module&gt;
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File &quot;/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py&quot;, line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)">[FAIL] (0.00)
 
-Pass Reason: All assertions passed</td>
+  Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)
+---
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error: Error running Python script: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+Stack Trace: Error: AttributeError: module 'chatbot_wrapper' has no attribute 'call_api'
+at PythonShell.parseError (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:303:21)
+at terminateIfNeeded (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:193:32)
+at Socket.<anonymous> (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/python-shell/index.js:173:17)
+at Socket.emit (node:events:532:35)
+at endReadableNT (node:internal/streams/readable:1696:12)
+at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+--Python Traceback: --
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 35, in <module>
+  result = call_method(script_path, method_name, *data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/wrapper.py", line 20, in call_method
+  method_to_call = getattr(script_module, method_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+at runPython (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/python/pythonUtils.js:117:15)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async PythonProvider.executePythonScript (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/providers/pythonCompletion.js:54:31)
+at async Evaluator.runEval (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:170:28)
+at async processEvalStep (/Users/ningo/.npm/_npx/81bbc6515d992ace/node_modules/promptfoo/dist/src/evaluator.js:527:25)</td>
           
         </tr>
         

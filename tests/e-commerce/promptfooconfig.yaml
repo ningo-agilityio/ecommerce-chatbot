@@ -3,7 +3,10 @@ prompts:
     label: gpt_chat_prompt
 # default: openai:chat:gpt-4o-mini
 # Write s.t to test
-providers: [openai:chat:gpt-3.5-turbo]
+# providers: [openai:chat:gpt-3.5-turbo]
+providers: 
+  - id: 'python:chatbot_wrapper.py'
+    label: 'Chatbot Python script'
 defaultTest:
   vars:
     system_message: Answer concisely
