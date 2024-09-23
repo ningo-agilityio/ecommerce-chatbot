@@ -1,3 +1,4 @@
+import os
 from typing import Iterator
 import uuid
 
@@ -14,6 +15,8 @@ class CustomDocumentLoader(BaseLoader):
         Args:
             file_path: The path to the file to load.
         """
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.abspath(os.path.join(current_dir, file_path))
         self.file_path = file_path
 
     def lazy_load(self) -> Iterator[Document]:  # <-- Does not take any arguments

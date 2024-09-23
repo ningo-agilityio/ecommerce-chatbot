@@ -19,15 +19,22 @@ class EcommerceChatbot:
     def get_response(self, user_input):
         return self.chain.invoke({
             "input": user_input,
+            "chat_history": {}
         })
 
     def id(self) -> str:
         return self.providerId
   
-    async def call_api(self, input_text: str) -> Dict[str, Any]:
-        bot = EcommerceChatbot()
-        response = bot.get_response(input_text)
+    def call_api(self, prompt, *args, **kwargs) -> Dict[str, Any]:
+        response = self.get_response(prompt)
         print(response['text'])
         return {
             'output': response['text']
         }
+    
+def call_api(prompt, *args, **kwargs) -> Dict[str, Any]:
+    bot = EcommerceChatbot({
+        'config': {},
+        'id': 'E-commerce chatbot provider'
+    })
+    return bot.call_api(prompt)

@@ -64,5 +64,3 @@ configurable_runnable = ListRunnable().configurable_alternatives(
 chain = runnable1 | configurable_runnable
 
 response = chain.invoke(7, config={"configurable": {"next_step": "string"}})
-print(response)
-print(type(response))

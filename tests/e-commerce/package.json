@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "test-debug": "LOG_LEVEL=debug npx promptfoo@latest eval -o e-commerce-output.html",
     "test": "npx promptfoo@latest eval -o e-commerce-output.html"
   },
   "author": "",

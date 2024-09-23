@@ -50,6 +50,7 @@ if user_query is not None and user_query != "":
         with st.spinner("Processing..."):
             # response = call_steamship(prompt, context)
             chain_response = get_response(user_query, st.session_state.chat_history)
+            print(chain_response['text'])
             st.markdown(chain_response['text'])
             # response = st.write_stream(chain_response)
     st.session_state.chat_history.append(AIMessage(content=chain_response['text']))
