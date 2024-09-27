@@ -1,0 +1,11 @@
+Product Categories:
+- Electronics (smartphones, laptops, tablets, cameras, etc.)
+- Clothing (men's, women's, kids' apparel)
+- Home & Kitchen (appliances, furniture, decor, etc.)
+- Beauty & Personal Care
+- Books & Media
+
+Example Product:
+Name: Apple iPhone 13 Pro
+Description: The iPhone 13 Pro is a powerful smartphone with a 6.1-inch Super Retina XDR display, A15 Bionic chip, and advanced camera system. Available in Sierra Blue, Silver, Gold, and Graphite colors.
+Price: $999

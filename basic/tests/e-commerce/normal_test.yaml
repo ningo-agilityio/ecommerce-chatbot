@@ -1,0 +1,18 @@
+- description: Question about FAQs
+  vars:
+    question: Tell me about faqs about payment methods
+  assert:
+    - type: contains
+      value: payment methods
+- description: Question about order process
+  vars:
+    question: Tell me about order process?
+  assert:
+      - type: contains
+        value: checkout
+- description: Question about shipping info
+  vars:
+    question: Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com
+  assert:
+      - type: contains
+        value: shipping information

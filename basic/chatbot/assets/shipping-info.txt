@@ -1,0 +1,11 @@
+Shipping Options:
+- Standard Shipping (5-7 business days)
+- Expedited Shipping (2-3 business days)
+- Next-Day Shipping (1 business day)
+
+Shipping Carriers:
+- FedEx
+- UPS
+- USPS
+
+Free shipping is available on orders over $50.

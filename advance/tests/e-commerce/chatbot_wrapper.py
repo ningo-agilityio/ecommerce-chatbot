@@ -27,7 +27,6 @@ class EcommerceChatbot:
   
     def call_api(self, prompt, *args, **kwargs) -> Dict[str, Any]:
         response = self.get_response(prompt)
-        print(response['text'])
         return {
             'output': response['text']
         }
