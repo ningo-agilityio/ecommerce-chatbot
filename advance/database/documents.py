@@ -1,6 +1,5 @@
 import sqlite3
 import os
-import uuid
 import json
 import csv
 
@@ -25,8 +24,13 @@ def check_existing_data():
     cursor.execute('SELECT * FROM documents')
     result = cursor.fetchone()
     if (result):
-        return True
+        return result
     return False
+
+def retrieve_data():
+    cursor.execute('SELECT * FROM documents')
+    result = cursor.fetchall()
+    return result
 
 def get_full_file_path(file_name:str):
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -73,9 +77,14 @@ def load_shipping_information():
         cursor.execute('INSERT INTO documents (name, content) VALUES (?, ?)', 
             ('shipping_information', doc))
 
-if (check_existing_data() is False):
-    load_order_process()
-    load_products_information()
-    load_returns_and_refunds()
-    load_shipping_information()
+def init_and_retrieve_data():
+    records = check_existing_data()
+    if (records is False):
+        load_order_process()
+        load_products_information()
+        load_returns_and_refunds()
+        load_shipping_information()
+        conn.commit()  # Save changes
+    records = retrieve_data()
     conn.commit()  # Save changes
+    return records
