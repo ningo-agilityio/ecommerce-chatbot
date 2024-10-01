@@ -1,4 +1,4 @@
-from chatbot.prompt_parser import initialize_chain
+from main_chain import initialize_chain
 import streamlit as st
 import time
 

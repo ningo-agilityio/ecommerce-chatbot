@@ -2,7 +2,7 @@ import sys
 import os
 from typing import Any, Dict
 sys.path.append('../../')
-from chatbot.prompt_parser import initialize_chain
+from main_chain import initialize_chain
 
 class EcommerceChatbot:
     def __init__(self, options: Dict[str, Any]):

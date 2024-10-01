@@ -2,11 +2,13 @@ import os
 from google_shopping_service import GoogleShoppingService
 
 from langchain.tools import tool
+from lookup_local_assets_service import LookupLocalAssetsService
 import wikipedia
 from pydantic import BaseModel, Field
 
 # Init google shopping service
 google_shopping_service = GoogleShoppingService()
+local_assets_service = LookupLocalAssetsService()
 
 # Define the input schema
 class QuerySchemaInput(BaseModel):
@@ -44,6 +46,19 @@ def search_online_products(query: str) -> str:
         return "No online product found"
     return "\n\n".join(responses) + "\n"
 
+@tool(args_schema=QuerySchemaInput)
+def search_on_local_assets(query: str) -> str:
+    """Search keyword on local assets faqs.txt and data in Sqlite"""
+    result = ''
+    try:
+        response = local_assets_service.search(query)
+        result = response['text']
+    except Exception as e:
+        print(f"Searching query\n{query}\n raised following error:\n{e}")
+    if not result:
+        return "No result found correspond to given keyword"
+    return result + "\n"
+
 def create_tools():
-  tools = [search_wikipedia, search_online_products]
+  tools = [search_wikipedia, search_online_products, search_on_local_assets]
   return tools

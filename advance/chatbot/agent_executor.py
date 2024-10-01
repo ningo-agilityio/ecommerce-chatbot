@@ -3,7 +3,7 @@ from google_shopping_service import GoogleShoppingService
 import openai
 
 from dotenv import load_dotenv, find_dotenv
-from tools import create_tools, search_online_products, search_wikipedia
+from tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key = os.environ['OPENAI_API_KEY']
 
@@ -35,13 +35,17 @@ class CustomConversationMemory:
 
     def save_context(self, inputs, outputs):
         # Save user input and bot response
-        user_input = inputs.get("input", "")
+        # user_input = inputs.get("input", "")
         bot_response = outputs.get("output", "")
         self.conversation_history.append(bot_response)
 
     def clear(self):
         # Clear the stored conversation history
         self.conversation_history = []
+
+def _handle_error(error) -> str:
+    print("_handle_error_agent")
+    return str(error)[:50]
 
 custom_memory = CustomConversationMemory()
 tools = create_tools()
@@ -67,6 +71,7 @@ def run_agent(user_input):
         tool = {
             "search_wikipedia": search_wikipedia, 
             "search_online_products": search_online_products,
+            "search_on_local_assets": search_on_local_assets,
         }[result.tool]
         observation = tool.run(result.tool_input)
         intermediate_steps.append((result, observation))
@@ -74,7 +79,12 @@ def run_agent(user_input):
 agent_chain = RunnablePassthrough.assign(
     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
 ) | prompt | model | OpenAIFunctionsAgentOutputParser()
-agent_executor = AgentExecutor(agent=agent_chain, tools=tools, verbose=True)
+agent_executor = AgentExecutor(
+    agent=agent_chain, 
+    tools=tools, 
+    verbose=True,
+    handle_parsing_errors=_handle_error
+)
 # agent_executor.invoke({"input": "how to order an online product?"})
 # agent_executor.invoke({"input": "mini cake"})
 
@@ -92,6 +102,8 @@ def run_with_memory(input_text):
     return response
 
 # Test conversation
-run_with_memory("how to order an online product?")
+run_with_memory("How to order an online product?")
+run_with_memory("Who is Diddy?")
 run_with_memory("mini cake")
 run_with_memory("mousse")
+run_with_memory("shipping information")
