@@ -1,12 +1,11 @@
 openai==1.37.0
 streamlit==1.36.0
-langchain==0.2.8
-langchain-anthropic==0.1.20
-langchain-chroma==0.1.2
-langchain-community==0.2.7
-langchain-core==0.2.20
-langchain-openai==0.1.16
-langchain-text-splitters==0.2.2
+langchain==0.3.1
+langchain-anthropic==0.2.1
+langchain-community==0.3.1
+langchain-core==0.3.6
+langchain-openai==0.2.0
+langchain-text-splitters==0.3.0
 langchainhub==0.1.20
 langsmith==0.1.88
 uuid==1.30
@@ -18,3 +17,4 @@ google_auth_oauthlib==1.2.1
 google_auth_httplib2==0.2.0
 google_api_python_client==2.147.0
 faiss_cpu==1.8.0
+pydantic==2.9.2

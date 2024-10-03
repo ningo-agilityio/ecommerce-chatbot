@@ -1,5 +1,5 @@
-import os
-from typing import Any, Dict, List
+from operator import itemgetter
+from typing import Literal, TypedDict
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.prompts import PromptTemplate
@@ -8,7 +8,26 @@ from langchain import hub
 from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
-from chatbot.output_parser import CustomizeRouterOutputParser
+from output_parser import CustomizeRouterOutputParser
+from langchain_core.runnables.base import RunnableLambda
+from langchain_core.output_parsers import StrOutputParser
+
+import os
+import openai
+from dotenv import load_dotenv, find_dotenv
+
+_ = load_dotenv(find_dotenv()) # read local .env file
+openai.api_key = os.environ['OPENAI_API_KEY']
+
+class RouteQuery(TypedDict):
+    """Route query to destination."""
+    destination: Literal[
+        "faqs", 
+        "order process", 
+        "product information", 
+        "returns and refunds",
+        "shipping information"
+    ]
 
 faqs_template = """You are a very good at FAQs \
 You are great at answering questions about available ecommerce FAQS\
@@ -91,8 +110,14 @@ def initialize_docs_routing():
     for p_info in prompt_infos:
         name = p_info["name"]
         prompt_template = p_info["prompt_template"]
-        prompt = ChatPromptTemplate.from_template(template=prompt_template)
-        first_chain = LLMChain(llm=llm, prompt=prompt)
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", prompt_template),
+                ("human", "{input}"),
+            ]
+        )
+        # Combine the prompt and the LLM using the pipe operator (|), creating a RunnableSequence
+        first_chain =  prompt | llm | StrOutputParser()
         destination_chains[name] = first_chain
         
     destinations = [f"{p['name']}: {p['description']}" for p in prompt_infos]
@@ -101,16 +126,24 @@ def initialize_docs_routing():
     router_template = MULTI_PROMPT_ROUTER_TEMPLATE.format(
         destinations=destinations_str
     )
-    router_prompt = PromptTemplate(
-        template=router_template,
-        input_variables=["input"],
-        output_parser=CustomizeRouterOutputParser(),
+
+    router_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", router_template),
+            ("human", "{input}"),
+        ]
     )
 
-    router_chain = LLMRouterChain.from_llm(llm, router_prompt)
-    chain = MultiPromptChain(router_chain=router_chain, 
-                            destination_chains=destination_chains, 
-                            default_chain=destination_chains['faqs'], 
-                            verbose=True
-                            )
+    route_chain = (
+        router_prompt
+        | llm.with_structured_output(RouteQuery)
+        | itemgetter("destination")
+    )
+
+    chain = {
+        "destination": route_chain,  # "animal" or "vegetable"
+        "input": lambda x: x["input"],  # pass through input query
+    } | RunnableLambda(
+        lambda x: destination_chains[x["destination"]],
+    )
     return chain

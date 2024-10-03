@@ -103,7 +103,7 @@ def run_with_memory(input_text):
 
 # Test conversation
 run_with_memory("How to order an online product?")
-run_with_memory("Who is Diddy?")
+run_with_memory("What is langchain?")
 run_with_memory("mini cake")
 run_with_memory("mousse")
-run_with_memory("shipping information")
+run_with_memory("order process")
