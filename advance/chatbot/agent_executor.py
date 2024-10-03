@@ -1,13 +1,9 @@
-import os
-from google_shopping_service import GoogleShoppingService
-import openai
+# from dotenv import load_dotenv, find_dotenv
+# import os
+# import openai
+# _ = load_dotenv(find_dotenv()) # read local .env file
+# openai.api_key = os.environ['OPENAI_API_KEY']
 
-from dotenv import load_dotenv, find_dotenv
-from tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
-_ = load_dotenv(find_dotenv()) # read local .env file
-openai.api_key = os.environ['OPENAI_API_KEY']
-
-# from langchain.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.utils.function_calling import convert_to_openai_function
@@ -17,8 +13,9 @@ from langchain.agents.format_scratchpad import format_to_openai_functions
 from langchain.schema.agent import AgentFinish
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.agents import AgentExecutor
-from langchain.memory import ConversationBufferMemory
-from langchain.schema import HumanMessage, AIMessage
+from langchain.schema import HumanMessage
+
+from chatbot.tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
 
 class CustomConversationMemory:
     def __init__(self):
@@ -85,8 +82,6 @@ agent_executor = AgentExecutor(
     verbose=True,
     handle_parsing_errors=_handle_error
 )
-# agent_executor.invoke({"input": "how to order an online product?"})
-# agent_executor.invoke({"input": "mini cake"})
 
 def run_with_memory(input_text):
     # Load conversation history and include in input
@@ -102,8 +97,8 @@ def run_with_memory(input_text):
     return response
 
 # Test conversation
-run_with_memory("How to order an online product?")
-run_with_memory("What is langchain?")
-run_with_memory("mini cake")
-run_with_memory("mousse")
-run_with_memory("order process")
+# run_with_memory("How to order an online product?")
+# run_with_memory("What is langchain?")
+# run_with_memory("mini cake")
+# run_with_memory("mousse")
+# run_with_memory("order process")

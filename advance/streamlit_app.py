@@ -1,4 +1,4 @@
-from main_chain import initialize_chain
+from chatbot.agent_executor import run_with_memory
 import streamlit as st
 import time
 
@@ -15,13 +15,8 @@ st.write(
     "This is a simple Ecommerce Chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
 )
 
-def get_response(user_query, chat_history):
-    # Refactor here to make invoke faster
-    chain = initialize_chain()
-    return chain.invoke({
-        "chat_history": chat_history,
-        "input": user_query,
-    })
+def get_response(user_query):
+    return run_with_memory(user_query)
 
 # session state
 if "chat_history" not in st.session_state:
@@ -49,9 +44,9 @@ if user_query is not None and user_query != "":
     with st.chat_message("AI"):
         with st.spinner("Processing..."):
             # response = call_steamship(prompt, context)
-            chain_response = get_response(user_query, st.session_state.chat_history)
-            print(chain_response['text'])
-            st.markdown(chain_response['text'])
+            chain_response = get_response(user_query)
+            # print(chain_response['output'])
+            st.markdown(chain_response['output'])
             # response = st.write_stream(chain_response)
-    st.session_state.chat_history.append(AIMessage(content=chain_response['text']))
+    st.session_state.chat_history.append(AIMessage(content=chain_response['output']))
     # st.session_state.chat_history.append(AIMessage(content=response))

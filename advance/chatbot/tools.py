@@ -1,10 +1,9 @@
-import os
-from google_shopping_service import GoogleShoppingService
-
-from langchain.tools import tool
-from lookup_local_assets_service import LookupLocalAssetsService
 import wikipedia
+from langchain.tools import tool
 from pydantic import BaseModel, Field
+
+from chatbot.google_shopping_service import GoogleShoppingService
+from chatbot.lookup_local_assets_service import LookupLocalAssetsService
 
 # Init google shopping service
 google_shopping_service = GoogleShoppingService()

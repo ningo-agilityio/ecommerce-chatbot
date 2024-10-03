@@ -1,12 +1,10 @@
-import os
+
 from typing import Any
 
 # Solve issue from Chroma when using Streamlit
 # __import__('pysqlite3')
 # import sys
 # sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-from typing import Any
 
 # Langchain stuffs
 from langchain_openai import OpenAIEmbeddings
@@ -21,8 +19,8 @@ from langchain_core.runnables.passthrough import (
 from langchain_core.runnables.base import RunnableLambda
 
 # Separated built-in modules
-from documents_loader import load_docs
-from docs_prompt_routing import initialize_docs_routing
+from chatbot.documents_loader import load_docs
+from chatbot.docs_prompt_routing import initialize_docs_routing
 
 def initialize_chain():
     # Load from both local assets and database
