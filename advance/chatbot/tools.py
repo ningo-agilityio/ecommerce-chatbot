@@ -1,13 +1,17 @@
 import wikipedia
 from langchain.tools import tool
 from pydantic import BaseModel, Field
-
+import logging
 from chatbot.google_shopping_service import GoogleShoppingService
 from chatbot.lookup_local_assets_service import LookupLocalAssetsService
+from wikipedia.exceptions import PageError, DisambiguationError
 
 # Init google shopping service
 google_shopping_service = GoogleShoppingService()
 local_assets_service = LookupLocalAssetsService()
+
+logging.basicConfig(level=logging.ERROR,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Define the input schema
 class QuerySchemaInput(BaseModel):
@@ -22,11 +26,13 @@ def search_wikipedia(query: str) -> str:
         try:
             wiki_page =  wikipedia.page(title=page_title, auto_suggest=False)
             summaries.append(f"Page: {page_title}\nSummary: {wiki_page.summary}")
-        except (
-            self.wiki_client.exceptions.PageError,
-            self.wiki_client.exceptions.DisambiguationError,
-        ):
+        except (PageError, DisambiguationError) as e:
+            logging.error(f"Searching query fail for input: {query}. Error: {e}")
             pass
+            return ""  # Return None or a specific message
+        except Exception as e:
+            logging.error(f"Searching query fail for input: {query}. Error: {e}")
+            raise
     if not summaries:
         return "No good Wikipedia Search Result was found"
     return "\n\n".join(summaries)
@@ -40,7 +46,8 @@ def search_online_products(query: str) -> str:
         for record in results:
           responses.append(f"Product name: {record["title"]}\nPrice: {record["price"]["currency"]}{record["price"]["value"]}\nDescription: {record["description"]}")
     except Exception as e:
-        print(f"Searching query\n{query}\n raised following error:\n{e}")
+        logging.error(f"Searching query fail for input: {query}. Error: {e}")
+        raise
     if not responses:
         return "No online product found"
     return "\n\n".join(responses) + "\n"
@@ -53,7 +60,8 @@ def search_on_local_assets(query: str) -> str:
         response = local_assets_service.search(query)
         result = response['text']
     except Exception as e:
-        print(f"Searching query\n{query}\n raised following error:\n{e}")
+        logging.error(f"Searching query fail for input: {query}. Error: {e}")
+        raise
     if not result:
         return "No result found correspond to given keyword"
     return result + "\n"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+  <channel>
+    <title>Tiem Banh Vani</title>
+    <link>https://tiembanhvani.com</link>
+    <description>Tiem banh vani Danang</description>
+    
+    <item>
+      <g:id>12346</g:id>
+      <g:title>Mini Cake with Chocolate</g:title>
+      <g:description>Mini Cake with Chocolate</g:description>
+      <g:link>https://tiembanhvani.com/products/cupcake-17</g:link>
+      <g:image_link>https://product.hstatic.net/200000449489/product/z5505078673315_5035f145b6ae15ac51cf44ee1d6b6779_b4b6cc89045e4d2bb440f643a5d4c8b6_master.jpg</g:image_link>
+      <g:price>10.99 USD</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Mini Cake</g:brand>
+      <g:mpn>123ABC</g:mpn>
+      <g:gtin>0001234567890</g:gtin>
+      <g:shipping>
+          <g:country>US</g:country>
+          <g:service>Standard shipping</g:service>
+          <g:price>1.00 USD</g:price>
+      </g:shipping>
+    </item>
+
+    <!-- Add more products by duplicating the <item> block -->
+  </channel>
+</rss>
