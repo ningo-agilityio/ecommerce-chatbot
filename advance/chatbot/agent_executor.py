@@ -47,13 +47,15 @@ def _handle_error(error) -> str:
 custom_memory = CustomConversationMemory()
 tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
-model = ChatOpenAI(temperature=0).bind(functions=functions)
+model = ChatOpenAI(temperature=0, streaming=True).bind(functions=functions)
 prompt = ChatPromptTemplate.from_messages([
     ("system", "You are helpful but sassy assistant"),
     MessagesPlaceholder(variable_name="chat_history"),
     ("user", "{input}"),
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
+
+chain = prompt | model
 
 # Automatically receive when init agent executor
 def run_agent(user_input):
@@ -83,14 +85,14 @@ agent_executor = AgentExecutor(
     handle_parsing_errors=_handle_error
 )
 
-def run_with_memory(input_text):
+def run_with_memory(input_text, callback):
     # Load conversation history and include in input
     memory_variables = custom_memory.load_memory_variables({"input": input_text})
     full_input = {"input": input_text, **memory_variables}
+    chain_with_callbacks = agent_executor.with_config(callbacks=[callback])
 
     # Run the conversation
-    response = agent_executor.invoke(full_input)
-
+    response = chain_with_callbacks.invoke(full_input)
     # Save context (user input and AI response)
     custom_memory.save_context({"input": input_text}, {"output": response})
 
