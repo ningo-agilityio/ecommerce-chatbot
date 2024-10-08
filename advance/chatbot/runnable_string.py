@@ -23,20 +23,7 @@ class AgentLLMChain(LLMChain):
 
     def run(self, input: Any, **kwargs: Any) -> Dict[str, Any]:
         return self.agent_executor.run(input, **kwargs)
-
-def _handle_error(error) -> str:
-    print("_handle_error")
-    return str(error)[:50]
-
-# agent = create_react_agent(first_chain, tools, hub_prompt)
-# agent_executor = AgentExecutor(
-#     agent=agent,
-#     tools=tools,
-#     verbose=True,
-#     handle_parsing_errors=_handle_error,
-# )
-# chain = AgentLLMChain(CustomAgentExecutor(agent_executor))
-
+    
 class ListRunnable(RunnableSerializable[Any, list]):
     def invoke(
         self, input: Any, config: Optional[RunnableConfig] = None, **kwargs: Any
