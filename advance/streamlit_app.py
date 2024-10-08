@@ -1,5 +1,5 @@
 from typing import Any
-from chatbot.agent_executor import run_with_memory
+from app.chatbot.agent_executor import run_with_memory
 import streamlit as st
 
 from dotenv import load_dotenv

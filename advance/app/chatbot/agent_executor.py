@@ -15,7 +15,7 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain.agents import AgentExecutor
 from langchain.schema import HumanMessage
 
-from chatbot.tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
+from app.chatbot.tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
 
 class CustomConversationMemory:
     def __init__(self):
@@ -89,10 +89,14 @@ def run_with_memory(input_text, callback):
     # Load conversation history and include in input
     memory_variables = custom_memory.load_memory_variables({"input": input_text})
     full_input = {"input": input_text, **memory_variables}
-    chain_with_callbacks = agent_executor.with_config(callbacks=[callback])
+    
+    if callback is not None:
+        chain_with_callbacks = agent_executor.with_config(callbacks=[callback])
 
-    # Run the conversation
-    response = chain_with_callbacks.invoke(full_input)
+        # Run the conversation
+        response = chain_with_callbacks.invoke(full_input)
+    else:
+        response = agent_executor.invoke(full_input)
     # Save context (user input and AI response)
     custom_memory.save_context({"input": input_text}, {"output": response})
 

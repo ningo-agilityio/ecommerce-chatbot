@@ -2,8 +2,8 @@ import wikipedia
 from langchain.tools import tool
 from pydantic import BaseModel, Field
 import logging
-from chatbot.google_shopping_service import GoogleShoppingService
-from chatbot.lookup_local_assets_service import LookupLocalAssetsService
+from app.chatbot.google_shopping_service import GoogleShoppingService
+from app.chatbot.lookup_local_assets_service import LookupLocalAssetsService
 from wikipedia.exceptions import PageError, DisambiguationError
 
 # Init google shopping service

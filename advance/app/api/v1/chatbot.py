@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, validator, Field
+from app.chatbot.agent_executor import run_with_memory
 
 router = APIRouter()
 
@@ -20,4 +21,5 @@ def search_in_stream(input: QueryInput):
 
 @router.post("/search")
 def search(input: QueryInput):
-    return 'Search response'
+    return run_with_memory(input.keyword, None)['output']
+

@@ -2,7 +2,7 @@ import sys
 import os
 from typing import Any, Dict
 sys.path.append('../../')
-from main_chain import initialize_chain
+from app.chatbot.agent_executor import run_with_memory
 
 class EcommerceChatbot:
     def __init__(self, options: Dict[str, Any]):
@@ -13,14 +13,11 @@ class EcommerceChatbot:
         self.config = options.get('config', {})
         
         # Initialize the chatbot (with your chains, models, etc.)
-        self.chain = initialize_chain()
+        # self.chain = initialize_chain()
         pass
 
     def get_response(self, user_input):
-        return self.chain.invoke({
-            "input": user_input,
-            "chat_history": {}
-        })
+        return run_with_memory(user_input)
 
     def id(self) -> str:
         return self.providerId
