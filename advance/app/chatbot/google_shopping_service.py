@@ -7,8 +7,6 @@ _ = load_dotenv(find_dotenv())
 import logging
 # Set up logging
 logging.basicConfig(level=logging.INFO)
-# Example of logging a message
-logging.info("This is an info log message")
 
 # Make it work for Python 2+3 and with Unicode
 import json
