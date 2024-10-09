@@ -1,13 +1,23 @@
+Flask
+Frozen-Flask
 openai==1.40.0
 streamlit==1.36.0
-langchain==0.3.1
-langchain-anthropic==0.2.1
-langchain-community==0.3.1
-langchain-core==0.3.6
-langchain-openai==0.2.0
-langchain-text-splitters==0.3.0
-langchainhub==0.1.20
-# langsmith==0.1.88
+# 0.3.1
+langchain
+# 0.2.1
+langchain-anthropic
+# 0.3.1
+langchain-community
+# 0.3.6
+langchain-core
+# 0.2.0
+langchain-openai
+# 0.3.0
+langchain-text-splitters
+# 0.1.20
+langchainhub
+# 0.1.88
+langsmith
 uuid==1.30
 # pysqlite3-binary==0.5.3
 wikipedia==1.4.0
@@ -21,3 +31,4 @@ pydantic==2.9.2
 fastapi==0.115.0 
 starlette==0.38.6 
 uvicorn==0.31.0
+mangum==0.19.0

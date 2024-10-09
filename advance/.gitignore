@@ -169,3 +169,6 @@ tests/node_modules
 **/translation-output.html
 .aider*
 ecommercechatbot-*.json
+invoke.py
+ecommerce_chatbot.db
+.vercel

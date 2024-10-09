@@ -69,3 +69,8 @@ d. Then fill the id up into .env file
    $ cd tests/translation
    $ npm run test-translation
    ```
+
+7. Run Fast api:
+   ```
+   $ uvicorn app.main:app --reload
+   ```
