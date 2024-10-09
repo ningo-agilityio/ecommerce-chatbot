@@ -11,6 +11,7 @@ class GoogleShoppingService:
     # Load credentials from the service account JSON file (you'll need to create this from Google Cloud Console)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.abspath(os.path.join(current_dir, os.environ['CLIENT_SECRET_PATH']))
+    print(os.environ['CLIENT_SECRET_PATH'], current_dir, file_path)
     credentials = service_account.Credentials.from_service_account_file(file_path)
 
     # Build the Google Shopping API service
