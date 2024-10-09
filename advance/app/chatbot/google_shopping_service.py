@@ -16,22 +16,22 @@ import io
 data = json.loads(os.environ['GOOGLE_API_KEY'])
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.abspath(os.path.join(current_dir, 'assets/google_api_key.json'))
-# with io.open(file_path, 'w', encoding='utf8') as outfile:
-#     json.dump(data, outfile)
+with io.open(file_path, 'w', encoding='utf8') as outfile:
+    json.dump(data, outfile)
 
 # Read JSON file
 with open(file_path) as data_file:
     data_loaded = json.load(data_file)
 logging.info(data_loaded)
 logging.info(data_loaded.keys())
+logging.info(file_path)
 
 class GoogleShoppingService:
   resources: List = None
   def __init__(self) -> None:
     # Load credentials from the service account JSON file (you'll need to create this from Google Cloud Console)
     
-    logging.info(file_path)
-    credentials = service_account.Credentials.from_service_account_file(file_path)
+    credentials = service_account.Credentials.from_service_account_info(data_loaded)
 
     # Build the Google Shopping API service
     service = build('content', 'v2.1', credentials=credentials)
