@@ -169,6 +169,7 @@ tests/node_modules
 **/translation-output.html
 .aider*
 ecommercechatbot-*.json
+google_api_key.json
 invoke.py
 ecommerce_chatbot.db
 .vercel
