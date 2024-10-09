@@ -31,8 +31,7 @@ c. Navigate to IAM & Admin → Service Accounts:
 a. To retrieve the merchant id, please go to [Merchant center](https://merchants.google.com/mc/overview?a=5444340493&src=ome) and register one.
 b. Navigate to Users Section:
 
-   +  Go to Settings → Account access. Invite the Service Account:
-
+   + Go to Settings → People and access. Invite the Service Account:
    + Click the plus (+) button to invite a new user.
    + Enter the service account's email address (which is in your service account JSON file under the "client_email" field, e.g., your-service-account@your-project-id.iam.gserviceaccount.com).
    + Set the role to Admin or Standard depending on the access you want to provide. 

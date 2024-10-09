@@ -34,7 +34,7 @@ def retrieve_data():
 
 def get_full_file_path(file_name:str):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.abspath(os.path.join(current_dir, '../chatbot', file_name))
+    return os.path.abspath(os.path.join(current_dir, '../app/chatbot', file_name))
 
 # Read and save data from order-process.json
 def load_order_process():
