@@ -44,7 +44,7 @@ def search_online_products(query: str) -> str:
     try:
         results = google_shopping_service.search(query)
         for record in results:
-          responses.append(f"Product name: {record["title"]}\nPrice: {record["price"]["currency"]}{record["price"]["value"]}\nDescription: {record["description"]}")
+          responses.append(f"Product name: {record['title']}\nPrice: {record['price']['currency']}{record['price']['value']}\nDescription: {record['description']}")
     except Exception as e:
         logging.error(f"Searching query fail for input: {query}. Error: {e}")
         raise
