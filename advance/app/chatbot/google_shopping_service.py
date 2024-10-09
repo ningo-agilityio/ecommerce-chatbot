@@ -16,14 +16,14 @@ import io
 data = json.loads(os.environ['GOOGLE_API_KEY'])
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.abspath(os.path.join(current_dir, 'assets/google_api_key.json'))
-# alternative_path = os.path.abspath(os.path.join(current_dir, 'assets/ecommercechatbot-436909-3af585186cb6.json'))
-with io.open(file_path, 'w', encoding='utf8') as outfile:
-    json.dump(data, outfile)
+# with io.open(file_path, 'w', encoding='utf8') as outfile:
+#     json.dump(data, outfile)
 
 # Read JSON file
-# with open(file_path) as data_file:
-#     data_loaded = json.load(data_file)
-# logging.info(data_loaded)
+with open(file_path) as data_file:
+    data_loaded = json.load(data_file)
+logging.info(data_loaded)
+logging.info(data_loaded.keys())
 
 class GoogleShoppingService:
   resources: List = None
