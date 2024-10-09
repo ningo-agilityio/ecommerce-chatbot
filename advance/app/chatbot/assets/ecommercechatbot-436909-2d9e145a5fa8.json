@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ecommercechatbot-436909",
+  "private_key_id": "2d9e145a5fa82974cb7ca4ec99e57709360ac1eb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCKWfOiS0S0uBux\noauK/R7pQRQcgwUB4x5h6NR2HliVaTqjBHpCoSaB46KKfNjQa2ijq2nLL49twVYy\nszWAvZteexK5UmS7IyNWgjjiL8goXab08kb9YjwISJYXHEj/dd7AW0RZ95XRvnRG\nt0B1wy9MO5bkqgrUrvOv7UTVyWgyeoWsbeNWzDeXcoRPT3V/6WFFQ87A91FuUJ7+\nBkFkXQyHR5rMLXtG9nossYou2iHH9Oi5VSbKc+EDGgqsDvkDbyDJtmlpEwljJNXC\nRJQwEyYtR5nMyxSpigruZ3S4Vu3jJ7lvuQrCY4DtO8Cwht/Tp6cMkdOltsj2Ccsz\nvpuA5vTVAgMBAAECggEAK//YglxSsPC+afsjDbRbYM5AIaMvc/6xmmzMKPaUsIvD\nSLXzVf5fOz7UYhu7bmlCYY7xudtZz4uFqOEimltyrpUQityfyX4uzmPiyFhu3RuP\nreXhWtMjiXTgOuBVfN0VJvK/paceQBLEcvrzpqAZCjMHVZiYkjRDrscUNbN0jly+\nLBxiUF2Qmxr/aZUubKNtIqcSOHkQAOTWd+OUONGJDODJFvPUCSmz/e3mGc7QvtuM\nmcmkMpTTsfFnr9D/ConRqZhnwZS3L77HsNO/D0brdNVBBqLtVx5Te/NofkPAme/L\nx4HKjn2RQMiguyMojrMqX/bmIq4a+eYthXN9f2NITwKBgQDAOloBCdKNH2DPMSoF\nBHxeU4nZFYX1jMrHAIO9OQ1u69zdMIp5LQHIz2tZs/QLAOjT1GIBw3g5TlCS0eLB\nGI7mjC4CGpMPesfhCWsDEZ1Iq4PYystfDndCMeC82k6MmyVinDyU7dJ/tsuE6Hvu\niXWEovmNetQVBkxWrrX/aQnxiwKBgQC4P/B+G8XNkH97o+7qtu/UfyO4clGx1chZ\negxyzxo2aOgj5P1KpHtuViuHlfCgdQhd3HDsu8B30CObydQXsZRM1+l0z8AAiNw1\n54yQAdLkCcLYxRPojavH8NhkXKnMrZAaK8Kkai3gA75Teji5OLV1gj+vRMrwtfFC\nCvHKD/S/HwKBgHgpQa/aewJ6deKugezHBBNWtxm7SZTYIL3LBY7YRhxrVhHyUO00\nhCQJ/LoDMm9abzBTV7xwewufd+B/UPaRqmpVgEESaZFIl/+FCp7NePs/M9jl08Ek\n4sm/MhP7hxR/uxvsPDaAf5AULR500VuoE40I72RQPpix6jBZYC07dNrHAoGAeN34\n9cFiUSepeYJhCLhZPBzrYeQck3yaoZfe8rHJkEfhgSqGvqCIGCmPBLLn11ru0iP6\nMFI6QF7Z/Si5aZGkp4Q8MdTXL4KYcwQiwZVwswd0Op+OH9BQECl+yte+y/ZPwdtT\nJGhDD+FkyX40F82LvDplbKTEPIQecCSd2N/+viECgYB6QVJCjKj4ZhVqLrnAJmI/\nioW8i/8W6l/FOuUXzqLjmkkZMk+wxaxjvBqJEKIto3DbUoGQ//SLASW9RO3dSqAX\nuBovkc1wH05f2/NX61L7fhhF/NN6RLuE5AHsLmn1IkHD+rcLo/GgCFmHkbNYOiae\nApf6eR815OilZeIO4MiJyQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ecommerce-chatbot@ecommercechatbot-436909.iam.gserviceaccount.com",
+  "client_id": "110735939792521861984",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ecommerce-chatbot%40ecommercechatbot-436909.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
