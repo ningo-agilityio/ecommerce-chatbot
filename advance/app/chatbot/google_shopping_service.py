@@ -4,6 +4,11 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
+import logging
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+# Example of logging a message
+logging.info("This is an info log message")
 
 class GoogleShoppingService:
   resources: List = None
@@ -11,7 +16,10 @@ class GoogleShoppingService:
     # Load credentials from the service account JSON file (you'll need to create this from Google Cloud Console)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.abspath(os.path.join(current_dir, os.environ['CLIENT_SECRET_PATH']))
-    print(os.environ['CLIENT_SECRET_PATH'], current_dir, file_path)
+    logging.info(os.environ['CLIENT_SECRET_PATH'])
+    logging.info(current_dir)
+    logging.info(file_path)
+    logging.info(os.environ['GOOGLE_MERCHANT_ID'])
     credentials = service_account.Credentials.from_service_account_file(file_path)
 
     # Build the Google Shopping API service
@@ -19,7 +27,7 @@ class GoogleShoppingService:
 
     # Make a simple request (e.g., list products from your Merchant account)
     merchant_id = os.environ['GOOGLE_MERCHANT_ID']
-
+    
     self.resources = service.products().list(merchantId=merchant_id).execute()
 
   def search(self, query):
