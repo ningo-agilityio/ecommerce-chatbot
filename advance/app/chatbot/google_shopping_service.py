@@ -14,7 +14,7 @@ class GoogleShoppingService:
   def __init__(self) -> None:
     # Load credentials from the service account JSON file (you'll need to create this from Google Cloud Console)
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.abspath(os.path.join(current_dir, os.environ['CLIENT_SECRET_PATH']))
+    file_path = os.path.abspath(os.path.join(current_dir, "assets/ecommercechatbot-436909-2d9e145a5fa8.json"))
     logging.info(file_path)
     logging.info(os.environ['GOOGLE_MERCHANT_ID'])
     credentials = service_account.Credentials.from_service_account_file(file_path)
