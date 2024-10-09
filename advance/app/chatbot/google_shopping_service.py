@@ -23,7 +23,7 @@ with io.open(file_path, 'w', encoding='utf8') as outfile:
 with open(file_path) as data_file:
     data_loaded = json.load(data_file)
 logging.info(data_loaded)
-logging.info(data_loaded.keys())
+# logging.info(data_loaded.keys())
 logging.info(file_path)
 
 class GoogleShoppingService:
