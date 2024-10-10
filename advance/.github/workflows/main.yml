@@ -35,8 +35,8 @@ name: Live Preview
 
 on:
   push:
-    branches:
-      - advanced-practice
+    # branches:
+    #   - advanced-practice
 
 jobs:
   live-preview:
