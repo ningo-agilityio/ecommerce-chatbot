@@ -3,7 +3,7 @@ name: Live Preview
 on:
   push:
     branches:
-      - main
+      - advanced-practice
 
 jobs:
   live-preview:
