@@ -1,0 +1,17 @@
+[dev]
+  command = "uvicorn app.main:app --reload"
+  port = 8000
+  publish = "."
+  autoLaunch = true
+
+[[redirects]]
+  from = "/api/*"  # All API requests should be forwarded
+  to = "http://localhost:8000/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/"  
+  to = "http://localhost:8000/"
+  status = 200
+  force = true

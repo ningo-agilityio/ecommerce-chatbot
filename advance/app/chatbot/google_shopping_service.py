@@ -10,22 +10,22 @@ logging.basicConfig(level=logging.INFO)
 
 # Make it work for Python 2+3 and with Unicode
 import json
-import io
-import ast
-# data = json.loads(os.environ['GOOGLE_API_KEY'])
-current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.abspath(os.path.join(current_dir, 'assets/google_api_key.json'))
-# with io.open(file_path, 'w', encoding='utf8') as outfile:
-#     json.dump(data, outfile)
 
-# Read JSON file
-# with open(file_path) as data_file:
-#     data_loaded = json.load(data_file)
-data_loaded = json.loads(os.environ['GOOGLE_API_KEY'])
+google_api_key_str = os.environ['GOOGLE_API_KEY']
+logging.info('google_api_key_str')
+google_api_key_str = google_api_key_str.replace('\\n', '\n')
+google_api_key_str = google_api_key_str.replace('\n', '\\n')
+
+logging.info(google_api_key_str)
+logging.info(type(google_api_key_str))
+
+data_loaded = json.loads(google_api_key_str)
+data_loaded['private_key'] = data_loaded['private_key'].replace('\\n', '\n')
+
+# data_loaded = json.loads(json_string)
 logging.info(data_loaded)
-logging.info(print(type(data_loaded)))
+logging.info(type(data_loaded))
 logging.info(data_loaded.keys())
-
 class GoogleShoppingService:
   resources: List = None
   def __init__(self) -> None:
