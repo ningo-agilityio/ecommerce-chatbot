@@ -173,3 +173,5 @@ google_api_key.json
 invoke.py
 ecommerce_chatbot.db
 .vercel
+.netlify
+.DS_Store

@@ -1,70 +1,32 @@
-# name: 'Prompt Evaluation'
-# on:
-#   # push:
-#   #   branches:
-#   #     - main
-#   #   paths:
-#   #     - 'tests/**'
-#   pull_request:
-#     paths:
-#       - 'tests/e-commerce/**'
-# jobs:
-#   evaluate:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: read # Required for actions/checkout
-#       pull-requests: write # Ability to post comments on Pull Requests
-#     steps:
-#       # Required for promptfoo-action's git usage
-#       - uses: actions/checkout@v4
-#         with:
-#           fetch-depth: 0
-#       - run: git init
-
-#       # You may pin to the exact commit or the version.
-#       - name: Run promptfoo evaluation
-#         uses: promptfoo/promptfoo-action@v1
-#         with:
-#           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
-#           prompts: 'tests/e-commerce/normal_test.yaml'
-#           config: 'tests/e-commerce/promptfooconfig.yaml'
-#           cache-path: ~/.cache/promptfoo
-
-name: Live Preview
-
+name: 'Prompt Evaluation'
 on:
-  push:
-    # branches:
-    #   - advanced-practice
-
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'tests/**'
+  pull_request:
+    paths:
+      - 'tests/e-commerce/**'
 jobs:
-  live-preview:
+  evaluate:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read # Required for actions/checkout
+      pull-requests: write # Ability to post comments on Pull Requests
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      # Required for promptfoo-action's git usage
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git init
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Start development server
-      run: |
-        netlify dev --live &   # Start your local dev server (replace with your command)
-        npx ngrok http 8000   # Expose the dev server via Ngrok (port 8000)
-
-    - name: Get Ngrok public URL
-      run: |
-        curl http://localhost:4040/api/tunnels   # Fetch the public URL from Ngrok
-
-    - name: Display live preview URL
-      run: |
-        echo "Live preview running at: $(curl http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
+      # You may pin to the exact commit or the version.
+      - name: Run promptfoo evaluation
+        uses: promptfoo/promptfoo-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          prompts: 'tests/e-commerce/normal_test.yaml'
+          config: 'tests/e-commerce/promptfooconfig.yaml'
+          cache-path: ~/.cache/promptfoo
