@@ -22,9 +22,17 @@ jobs:
           fetch-depth: 0
       - run: git init
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
       - name: Add app to PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/app" >> $GITHUB_ENV
-        
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       # You may pin to the exact commit or the version.
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
