@@ -2,7 +2,7 @@ name: 'Prompt Evaluation'
 on:
   push:
     branches:
-      - main
+      - advanced-practice
     paths:
       - 'tests/**'
   # pull_request:

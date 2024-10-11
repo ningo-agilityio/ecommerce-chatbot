@@ -1,8 +1,10 @@
 import sys
-from typing import Any, Dict
-sys.path.append('../../')
-from app.chatbot.agent_executor import run_with_memory
 import logging
+from typing import Any, Dict
+from app.chatbot.agent_executor import run_with_memory
+
+sys.path.append('../../')
+
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
