@@ -58,7 +58,11 @@ def search_on_local_assets(query: str) -> str:
     result = ''
     try:
         response = local_assets_service.search(query)
-        result = response['text']
+        logging.info(response)
+        if isinstance(response, dict) and "input" in response:
+            result = response['text']
+        else:
+            result = response
     except Exception as e:
         logging.error(f"Searching query fail for input: {query}. Error: {e}")
         raise

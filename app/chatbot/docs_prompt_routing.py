@@ -5,6 +5,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
 from langchain_core.runnables.base import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompt_values import ChatPromptValue
 
 import os
 import openai
@@ -12,6 +13,10 @@ from dotenv import load_dotenv, find_dotenv
 
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key = os.environ['OPENAI_API_KEY']
+
+import logging
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 class RouteQuery(TypedDict):
     """Route query to destination."""
@@ -136,8 +141,32 @@ def initialize_docs_routing():
 
     chain = {
         "destination": route_chain,  # "animal" or "vegetable"
-        "input": lambda x: x["input"],  # pass through input query
+        "input": lambda x: debug_chain_value(x),  # pass through input query
     } | RunnableLambda(
         lambda x: destination_chains[x["destination"]],
     )
     return chain
+
+def debug_chain_value(x):
+    logging.info(f"Debugging value of x: {x}")
+    # Check if x is a dictionary (normal case)
+    if isinstance(x, dict):
+        logging.info("x is a dictionary.")
+
+        if "input" in x:
+            logging.info(f"Input is: {x['input']}")
+        else:
+            logging.info("No 'input' found in x.")
+        return x["input"]  # Return the destination chain
+    
+    # If it's not a dictionary, just return a default or handle the error
+    else:
+        if isinstance(x, ChatPromptValue):
+            for message in x.messages:
+                logging.info(f"Message content: {message.content}")  # Output the content
+                # Process based on message content
+                return message.content    
+        else:
+            logging.info(f"x is not a dictionary, it is of type {type(x)}")
+            # Add further handling based on your application's needs
+            raise TypeError("Expected x to be a dictionary")

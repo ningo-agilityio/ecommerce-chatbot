@@ -12,18 +12,15 @@ logging.basicConfig(level=logging.INFO)
 import json
 
 google_api_key_str = os.environ['GOOGLE_API_KEY']
-logging.info('google_api_key_str')
 google_api_key_str = google_api_key_str.replace('\\n', '\n')
 google_api_key_str = google_api_key_str.replace('\n', '\\n')
 
-logging.info(google_api_key_str)
 logging.info(type(google_api_key_str))
 
 data_loaded = json.loads(google_api_key_str)
 data_loaded['private_key'] = data_loaded['private_key'].replace('\\n', '\n')
 
 # data_loaded = json.loads(json_string)
-logging.info(data_loaded)
 logging.info(type(data_loaded))
 logging.info(data_loaded.keys())
 class GoogleShoppingService:
