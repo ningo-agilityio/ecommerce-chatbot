@@ -39,6 +39,6 @@ jobs:
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          prompts: 'tests/e-commerce/normal_test.yaml'
+          # prompts: 'tests/e-commerce/normal_test.yaml'
           config: 'tests/e-commerce/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
