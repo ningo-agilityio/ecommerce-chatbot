@@ -19,7 +19,7 @@ prompts:
     label: gpt_chat_prompt
 providers: 
   - id: 'python:chatbot_wrapper.py'
-    label: 'Chatbot Python script'
+    label: 'E-commerce Chatbot Python script'
 defaultTest:
   vars:
     system_message: Answer concisely
