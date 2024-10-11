@@ -24,7 +24,7 @@ defaultTest:
   vars:
     system_message: Answer concisely
     messages:
-      - user: How do I track my order?
+      - user: How do I track my cake order?
       - assistant: You can track your order by clicking on the "Track Order" link in the order confirmation email or by logging into your account on our website and navigating to the "Orders" section.
       - user: Give me shipping info
       - assistant: "Shipping Options: - Standard Shipping (5-7 business days) - Expedited Shipping (2-3 business days) - Next-Day Shipping (1 business day)"
@@ -53,7 +53,7 @@ scenarios:
           - $ref: "#/assertionTemplates/containsCheckout"
   - config:
       - vars:
-          expectedShipping: 'shipping information'
+          expectedShipping: 'shipping info'
     tests:
       - description: Question about shipping info
         vars:
