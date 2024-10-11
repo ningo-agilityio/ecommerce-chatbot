@@ -1,16 +1,22 @@
 name: 'Prompt Evaluation'
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'tests/**'
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
-      - 'tests/e-commerce/**'
+      - 'tests/**'
+  # pull_request:
+  #   paths:
+  #     - 'tests/e-commerce/**'
 jobs:
   evaluate:
     runs-on: ubuntu-latest
+    env:  # Define environment variables here
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      GOOGLE_MERCHANT_ID: ${{ secrets.GOOGLE_MERCHANT_ID }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      ALLOW_CORS_ADDRESSES: ${{ secrets.ALLOW_CORS_ADDRESSES }}
+
     permissions:
       contents: read # Required for actions/checkout
       pull-requests: write # Ability to post comments on Pull Requests
