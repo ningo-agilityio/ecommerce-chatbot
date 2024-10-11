@@ -61,12 +61,12 @@ d. Then fill the id up into .env file
 - For e-commerce app:
    ```
    $ cd tests/e-commerce
-   $ npm run test-ecommerce
+   $ npm run test
    ```
 - For translation app:
    ```
    $ cd tests/translation
-   $ npm run test-translation
+   $ npm run test
    ```
 
 7. Run Fast api:
