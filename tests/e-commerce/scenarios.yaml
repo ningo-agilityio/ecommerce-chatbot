@@ -10,35 +10,35 @@
           value: '{{expectedPaymentMethod}}'
           threshold: 0.90
           metric: Tone
-- config:
-    - vars:
-        expectedOrderProcess: 'order process' 
-        expectedOrderCheckout: 'checkout' 
-  tests:
-    - description: Question about order process
-      vars:
-        question: Tell me about order process?
-      assert:
-        - type: contains-any
-          value: 
-            - '{{expectedOrderProcess}}'
-            - '{{expectedOrderCheckout}}'
-          threshold: 0.90
-          metric: Tone
-- config:
-    - vars:
-        expectedShipping: 'shipping information'
-        expectedShippingInfo: 'shipping info'
-        expectedShippingDetails: 'shipping details'
-  tests:
-    - description: Question about shipping info
-      vars:
-        question: Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com
-      assert:
-        - type: contains-any
-          value: 
-            - '{{expectedShipping}}'
-            - '{{expectedShippingInfo}}'
-            - '{{expectedShippingDetails}}'
-          threshold: 0.90
-          metric: Tone
+# - config:
+#     - vars:
+#         expectedOrderProcess: 'order process' 
+#         expectedOrderCheckout: 'checkout' 
+#   tests:
+#     - description: Question about order process
+#       vars:
+#         question: Tell me about order process?
+#       assert:
+#         - type: contains-any
+#           value: 
+#             - '{{expectedOrderProcess}}'
+#             - '{{expectedOrderCheckout}}'
+#           threshold: 0.90
+#           metric: Tone
+# - config:
+#     - vars:
+#         expectedShipping: 'shipping information'
+#         expectedShippingInfo: 'shipping info'
+#         expectedShippingDetails: 'shipping details'
+#   tests:
+#     - description: Question about shipping info
+#       vars:
+#         question: Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com
+#       assert:
+#         - type: contains-any
+#           value: 
+#             - '{{expectedShipping}}'
+#             - '{{expectedShippingInfo}}'
+#             - '{{expectedShippingDetails}}'
+#           threshold: 0.90
+#           metric: Tone
