@@ -1,0 +1,32 @@
+- config:
+        # - vars:
+        #     expectedPaymentMethod: 'payment methods'
+    tests:
+      - description: Question about FAQs
+        vars:
+          question: Tell me about faqs about payment methods
+        assert:
+          type: contains
+          value: 'payment methods'
+          threshold: 0.90
+          metric: Tone
+# - config:
+#     - vars:
+#         expectedCheckout: 'checkout'
+#   tests:
+#     - description: Question about order process
+#       vars:
+#         question: Tell me about order process?
+#       assert:
+#         - $ref: "#/assertionTemplates/containsCheckout"
+# - config:
+#     - vars:
+#         expectedShipping: 'shipping information'
+#         expectedShippingInfo: 'shipping info'
+#         expectedShippingDetails: 'shipping details'
+#   tests:
+#     - description: Question about shipping info
+#       vars:
+#         question: Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com
+#       assert:
+#         - $ref: "#/assertionTemplates/containsShipping"
