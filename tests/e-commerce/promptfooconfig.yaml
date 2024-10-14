@@ -36,7 +36,7 @@ defaultTest:
 scenarios:
   - config:
     - vars:
-        expectedPaymentMethod: 'payment methods'
+        expectedPaymentMethod: 'payment'
     tests:
       - description: Question about FAQs
         vars:
