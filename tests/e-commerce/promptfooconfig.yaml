@@ -1,3 +1,24 @@
+assertionTemplates:
+  containsPaymentMethods:
+    type: contains
+    value: '{{expectedPaymentMethod}}'
+    threshold: 0.90
+    metric: Tone
+  containsOrderProcess:
+    type: contains-any
+    value: 
+      - '{{expectedOrderProcess}}'
+      - '{{expectedOrderCheckout}}'
+    threshold: 0.90
+    metric: Tone
+  containsShipping:
+    type: contains-any
+    value: 
+      - '{{expectedShipping}}'
+      - '{{expectedShippingInfo}}'
+      - '{{expectedShippingDetails}}'
+    threshold: 0.90
+    metric: Tone
 prompts:
   - id: file://prompts/prompt.txt
     label: gpt_chat_prompt
@@ -12,7 +33,6 @@ defaultTest:
       - assistant: You can track your order by clicking on the "Track Order" link in the order confirmation email or by logging into your account on our website and navigating to the "Orders" section.
       - user: Give me shipping info
       - assistant: "Shipping Options: - Standard Shipping (5-7 business days) - Expedited Shipping (2-3 business days) - Next-Day Shipping (1 business day)"
-# scenarios: file://scenarios.yaml
 scenarios:
   - config:
     - vars:
@@ -22,10 +42,7 @@ scenarios:
         vars:
           question: Tell me about faqs about payment methods
         assert:
-          - type: contains
-            value: '{{expectedPaymentMethod}}'
-            threshold: 0.90
-            metric: Tone
+          - $ref: "#/assertionTemplates/containsPaymentMethods"
   - config:
       - vars:
           expectedOrderProcess: 'order process' 
@@ -35,12 +52,7 @@ scenarios:
         vars:
           question: Tell me about order process?
         assert:
-          - type: contains-any
-            value: 
-              - '{{expectedOrderProcess}}'
-              - '{{expectedOrderCheckout}}'
-            threshold: 0.90
-            metric: Tone
+          - $ref: "#/assertionTemplates/containsOrderProcess"
   - config:
       - vars:
           expectedShipping: 'shipping information'
@@ -51,10 +63,6 @@ scenarios:
         vars:
           question: Please provide me shipping info. My order number is 111-9244735-1237858 and my email address is john@mail.com
         assert:
-          - type: contains-any
-            value: 
-              - '{{expectedShipping}}'
-              - '{{expectedShippingInfo}}'
-              - '{{expectedShippingDetails}}'
-            threshold: 0.90
-            metric: Tone
+          - $ref: "#/assertionTemplates/containsShipping"
+# Only work locally, doesn't work on GitHub action
+# scenarios: file://scenarios.yaml
