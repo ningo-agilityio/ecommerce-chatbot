@@ -40,7 +40,7 @@ jobs:
           key: ${{ runner.os }}-promptfoo-v1
           restore-keys: |
             ${{ runner.os }}-promptfoo-
-            
+
       # You may pin to the exact commit or the version.
       - name: Run promptfoo evaluation
         uses: promptfoo/promptfoo-action@v1
@@ -50,3 +50,7 @@ jobs:
           prompts: 'tests/e-commerce/prompts/prompt.txt'
           config: 'tests/e-commerce/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
+
+      - name: Check promptfoo version
+        run: /usr/local/bin/npx promptfoo@latest --version
+        
