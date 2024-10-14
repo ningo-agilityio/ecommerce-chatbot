@@ -18,8 +18,9 @@ jobs:
     steps:
       # Required for promptfoo-action's git usage
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
+          node-version: 20
       - run: git init
 
       - name: Set up Python
@@ -53,4 +54,3 @@ jobs:
 
       - name: Check promptfoo version
         run: /usr/local/bin/npx promptfoo@latest --version
-        
