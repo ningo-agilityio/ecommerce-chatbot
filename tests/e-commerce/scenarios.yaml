@@ -1,15 +1,13 @@
 - config:
-        # - vars:
-        #     expectedPaymentMethod: 'payment methods'
-    tests:
-      - description: Question about FAQs
-        vars:
-          question: Tell me about faqs about payment methods
-        assert:
-          type: contains
-          value: 'payment methods'
-          threshold: 0.90
-          metric: Tone
+  tests:
+    - description: Question about FAQs
+      vars:
+        question: Tell me about faqs about payment methods
+      assert:
+        type: contains
+        value: 'payment methods'
+        threshold: 0.90
+        metric: Tone
 # - config:
 #     - vars:
 #         expectedCheckout: 'checkout'

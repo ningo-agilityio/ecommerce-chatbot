@@ -13,6 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "promptfoo": "^0.73.9"
+    "promptfoo": "0.92.3"
   }
 }
