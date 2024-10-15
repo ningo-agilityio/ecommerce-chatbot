@@ -39,15 +39,14 @@ jobs:
             ${{ runner.os }}-promptfoo-
 
       - uses: actions/setup-node@v4
-      - name: Run promptfoo
         with:
-          node-version: 22
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          prompts: 'tests/e-commerce/prompts/prompt.txt'
-          config: 'tests/e-commerce/promptfooconfig.yaml'
-          cache-path: ~/.cache/promptfoo
-        run: |
+            node-version: 22
+            openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            prompts: 'tests/e-commerce/prompts/prompt.txt'
+            config: 'tests/e-commerce/promptfooconfig.yaml'
+            cache-path: ~/.cache/promptfoo
+      - run: |
           cd 'tests/e-commerce'
           npm install
           /usr/local/bin/npx promptfoo@latest --version
