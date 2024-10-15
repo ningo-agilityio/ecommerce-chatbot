@@ -27,13 +27,15 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
-
-      - name: Add app to PYTHONPATH
-        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/app" >> $GITHUB_ENV
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
-
+        run: |
+          echo "PYTHONPATH=$PYTHONPATH:$(pwd)/app" >> $GITHUB_ENV
+          pip install -r requirements.txt
+          cd 'tests/e-commerce'
+          npm install
+          /usr/local/bin/npx promptfoo@latest --version
+        
       - name: Set up promptfoo cache
         uses: actions/cache@v2
         with:
@@ -42,15 +44,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-promptfoo-
 
-      # You may pin to the exact commit or the version.
-      - name: Run promptfoo evaluation
-        uses: promptfoo/promptfoo-action@v1
+      - name: Install dependencies
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           prompts: 'tests/e-commerce/prompts/prompt.txt'
           config: 'tests/e-commerce/promptfooconfig.yaml'
           cache-path: ~/.cache/promptfoo
+        run: |
+          npm run test
+      # You may pin to the exact commit or the version.
+      # - name: Run promptfoo evaluation
+      #   uses: promptfoo/promptfoo-action@v1
+      #   with:
+      #     openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     prompts: 'tests/e-commerce/prompts/prompt.txt'
+      #     config: 'tests/e-commerce/promptfooconfig.yaml'
+      #     cache-path: ~/.cache/promptfoo
 
-      - name: Check promptfoo version
-        run: /usr/local/bin/npx promptfoo@latest --version
