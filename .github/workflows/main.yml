@@ -51,13 +51,3 @@ jobs:
           npm install
           /usr/local/bin/npx promptfoo@latest --version
           npm run test
-      # You may pin to the exact commit or the version.
-      # - name: Run promptfoo evaluation
-      #   uses: promptfoo/promptfoo-action@v1
-      #   with:
-      #     openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     prompts: 'tests/e-commerce/prompts/prompt.txt'
-      #     config: 'tests/e-commerce/promptfooconfig.yaml'
-      #     cache-path: ~/.cache/promptfoo
-
