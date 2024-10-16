@@ -3,7 +3,7 @@ import sys
 from typing import Any, Iterator, List
 import uuid
 sys.path.append('../')
-from database.documents import init_and_retrieve_data
+from database.documents import init_and_retrieve_documents
 from langchain_core.document_loaders import BaseLoader
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -52,7 +52,7 @@ class CustomDocumentLoader(BaseLoader):
                 line_number += 1
 
 def load_docs():
-    records = init_and_retrieve_data()
+    records = init_and_retrieve_documents()
     loaders = [
         # Keep only FAQs in document
         CustomDocumentLoader("assets/faqs.txt", None),

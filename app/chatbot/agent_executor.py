@@ -1,8 +1,8 @@
-# from dotenv import load_dotenv, find_dotenv
-# import os
-# import openai
-# _ = load_dotenv(find_dotenv()) # read local .env file
-# openai.api_key = os.environ['OPENAI_API_KEY']
+from dotenv import load_dotenv, find_dotenv
+import os
+import openai
+_ = load_dotenv(find_dotenv()) # read local .env file
+openai.api_key = os.environ['OPENAI_API_KEY']
 
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
@@ -15,7 +15,7 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain.agents import AgentExecutor
 from langchain.schema import HumanMessage
 
-from app.chatbot.tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia
+from app.chatbot.tools import create_tools, search_on_local_assets, search_online_products, search_wikipedia, search_sql_data
 
 class CustomConversationMemory:
     def __init__(self):
@@ -32,7 +32,6 @@ class CustomConversationMemory:
 
     def save_context(self, inputs, outputs):
         # Save user input and bot response
-        # user_input = inputs.get("input", "")
         bot_response = outputs.get("output", "")
         self.conversation_history.append(bot_response)
 
@@ -49,31 +48,13 @@ tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
 model = ChatOpenAI(temperature=0, streaming=True).bind(functions=functions)
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are helpful but sassy assistant"),
+    ("system", "You are helpful but sassy assistant for a shoes shop. If there is any question about price, please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
     MessagesPlaceholder(variable_name="chat_history"),
     ("user", "{input}"),
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
 
 chain = prompt | model
-
-# Automatically receive when init agent executor
-def run_agent(user_input):
-    intermediate_steps = []
-    while True:
-        result = agent_executor.invoke({
-            "input": user_input, 
-            "intermediate_steps": intermediate_steps
-        })
-        if isinstance(result, AgentFinish):
-            return result
-        tool = {
-            "search_wikipedia": search_wikipedia, 
-            "search_online_products": search_online_products,
-            "search_on_local_assets": search_on_local_assets,
-        }[result.tool]
-        observation = tool.run(result.tool_input)
-        intermediate_steps.append((result, observation))
 
 agent_chain = RunnablePassthrough.assign(
     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])

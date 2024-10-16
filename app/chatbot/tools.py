@@ -4,11 +4,14 @@ from pydantic import BaseModel, Field
 import logging
 from app.chatbot.google_shopping_service import GoogleShoppingService
 from app.chatbot.lookup_local_assets_service import LookupLocalAssetsService
+from app.chatbot.query_products_sql_data_service import QueryProductsSQLDataService
+
 from wikipedia.exceptions import PageError, DisambiguationError
 
 # Init google shopping service
 google_shopping_service = GoogleShoppingService()
 local_assets_service = LookupLocalAssetsService()
+query_products_sql_data_service = QueryProductsSQLDataService()
 
 logging.basicConfig(level=logging.ERROR,
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -70,6 +73,24 @@ def search_on_local_assets(query: str) -> str:
         return "No result found correspond to given keyword"
     return result + "\n"
 
+@tool(args_schema=QuerySchemaInput)
+def search_sql_data(query: str) -> str:
+    """Search keyword on sql data"""
+    result = ''
+    try:
+        response = query_products_sql_data_service.search(query)
+        logging.info(response)
+        if isinstance(response, dict) and "input" in response:
+            result = response['output']
+        else:
+            result = response
+    except Exception as e:
+        logging.error(f"Searching query fail for input: {query}. Error: {e}")
+        raise
+    if not result:
+        return "No result found correspond to given keyword"
+    return result + "\n"
+
 def create_tools():
-  tools = [search_wikipedia, search_online_products, search_on_local_assets]
+  tools = [search_wikipedia, search_sql_data, search_online_products, search_on_local_assets]
   return tools

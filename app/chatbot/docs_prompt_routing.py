@@ -1,3 +1,4 @@
+import logging
 from operator import itemgetter
 from typing import Literal, TypedDict
 from langchain_openai import ChatOpenAI
@@ -7,14 +8,13 @@ from langchain_core.runnables.base import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompt_values import ChatPromptValue
 
-import os
-import openai
-from dotenv import load_dotenv, find_dotenv
+# import os
+# import openai
+# from dotenv import load_dotenv, find_dotenv
 
-_ = load_dotenv(find_dotenv()) # read local .env file
-openai.api_key = os.environ['OPENAI_API_KEY']
+# _ = load_dotenv(find_dotenv()) # read local .env file
+# openai.api_key = os.environ['OPENAI_API_KEY']
 
-import logging
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
@@ -52,6 +52,7 @@ You have an excellent knowledge of and understanding of people,\
 events and contexts from a range of product categories. \
 You have the ability to think, reflect, discuss and \
 evaluate product information.
+If there are no products available, you will search from search_online_products or search_sql_data tools. 
 
 Here is a question:
 {input}"""
@@ -104,7 +105,7 @@ prompt_infos = [
 ]
 
 def initialize_docs_routing():
-    llm = ChatOpenAI(temperature=0.9, model="gpt-3.5-turbo")
+    llm = ChatOpenAI(temperature=0.9, model="gpt-4o-mini")
     destination_chains = {}
     for p_info in prompt_infos:
         name = p_info["name"]
@@ -178,6 +179,8 @@ def get_destination_value(x):
 
         if "destination" in x:
             logging.info(f"Destination is: {x['destination']}")
+            if x["destination"] == "DEFAULT":
+                return "faqs"
             return x["destination"]  # Return the destination chain
         else:
             logging.info("No 'destination' found in x.")
