@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Classic Chocolate Cake",
+    "description": "A rich, moist chocolate cake topped with creamy chocolate frosting.",
+    "price": 15.99
+  },
+  {
+    "title": "Vanilla Dream Cake",
+    "description": "Light and fluffy vanilla sponge cake with buttercream frosting.",
+    "price": 12.49
+  },
+  {
+    "title": "Red Velvet Cake",
+    "description": "Delicious red velvet cake with a hint of cocoa, layered with cream cheese frosting.",
+    "price": 16.99
+  },
+  {
+    "title": "Strawberry Shortcake",
+    "description": "Layers of sponge cake with fresh strawberries and whipped cream.",
+    "price": 14.99
+  },
+  {
+    "title": "Lemon Drizzle Cake",
+    "description": "Tangy lemon cake with a sweet, zesty lemon glaze.",
+    "price": 13.50
+  },
+  {
+    "title": "Carrot Cake",
+    "description": "Moist carrot cake with cinnamon and nutmeg, topped with cream cheese frosting.",
+    "price": 15.75
+  },
+  {
+    "title": "Black Forest Cake",
+    "description": "Decadent chocolate cake layered with cherries and whipped cream.",
+    "price": 18.99
+  },
+  {
+    "title": "Tiramisu Cake",
+    "description": "Coffee-flavored Italian dessert with mascarpone cream and cocoa powder.",
+    "price": 19.99
+  },
+  {
+    "title": "Coconut Cake",
+    "description": "Moist coconut cake layered with coconut frosting and shredded coconut.",
+    "price": 14.50
+  },
+  {
+    "title": "Funfetti Birthday Cake",
+    "description": "Vanilla cake filled with colorful sprinkles, perfect for celebrations.",
+    "price": 13.99
+  },
+  {
+    "title": "Banana Cake",
+    "description": "Light banana-flavored cake topped with rich cream cheese frosting.",
+    "price": 12.99
+  },
+  {
+    "title": "Cheesecake",
+    "description": "Creamy cheesecake with a graham cracker crust, topped with fresh berries.",
+    "price": 17.50
+  },
+  {
+    "title": "Chocolate Fudge Cake",
+    "description": "Dense chocolate cake layered with thick fudge frosting.",
+    "price": 16.50
+  },
+  {
+    "title": "Pumpkin Spice Cake",
+    "description": "Seasonal pumpkin cake with cinnamon frosting and a dash of nutmeg.",
+    "price": 14.99
+  },
+  {
+    "title": "Almond Cake",
+    "description": "Delicate almond-flavored cake with an almond glaze and slivered almonds.",
+    "price": 15.25
+  },
+  {
+    "title": "Matcha Green Tea Cake",
+    "description": "Light and airy matcha cake with sweet matcha-flavored cream.",
+    "price": 18.25
+  },
+  {
+    "title": "Raspberry Swirl Cake",
+    "description": "Vanilla cake swirled with fresh raspberry puree and topped with raspberry cream.",
+    "price": 15.99
+  },
+  {
+    "title": "Pineapple Upside-Down Cake",
+    "description": "Buttery cake with caramelized pineapples and cherries on top.",
+    "price": 14.50
+  },
+  {
+    "title": "Peanut Butter Chocolate Cake",
+    "description": "Rich chocolate cake layered with creamy peanut butter frosting.",
+    "price": 17.75
+  },
+  {
+    "title": "Chocolate Chip Cookie Cake",
+    "description": "Soft and chewy chocolate chip cookie in cake form, topped with vanilla frosting.",
+    "price": 13.50
+  }
+]
