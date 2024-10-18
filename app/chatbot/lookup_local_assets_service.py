@@ -1,4 +1,5 @@
 
+import logging
 from typing import Any
 
 # Solve issue from Chroma when using Streamlit
@@ -6,7 +7,16 @@ from typing import Any
 # import sys
 # sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
+import os
+import openai
+from dotenv import load_dotenv, find_dotenv
+
+_ = load_dotenv(find_dotenv()) # read local .env file
+openai.api_key = os.environ['OPENAI_API_KEY']
+
+
 # Langchain stuffs
+# from app.chatbot.react_agent import ReactAgentForLocalAssetsRouting
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 from langchain.storage import InMemoryByteStore
@@ -17,15 +27,45 @@ from langchain_core.runnables.passthrough import (
     RunnablePassthrough
 )
 from langchain_core.runnables.base import RunnableLambda
+from langchain.tools.retriever import create_retriever_tool
 
 # Separated built-in modules
 from app.chatbot.documents_loader import load_docs
 from app.chatbot.docs_prompt_routing import initialize_docs_routing
 
+def initialize_retriever_tool():
+    doc_ids, docs = load_docs()
+    store = InMemoryByteStore()
+    id_key = "doc_id"
+    documents = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=200
+    ).split_documents(docs)
+    vector_store = FAISS.from_documents(documents, OpenAIEmbeddings())
+   
+    # The retriever (empty to start)
+    retriever = MultiVectorRetriever(
+        vectorstore=vector_store,
+        byte_store=store,
+        id_key=id_key,
+    )
+
+    retriever.vectorstore.add_documents(docs)
+    retriever.docstore.mset(list(zip(doc_ids, docs)))
+
+    tool_lookup_docs = create_retriever_tool(
+        retriever=retriever,
+        name="order process",
+        description="Searches and returns excerpts from the FAQs, Order Process, Product Information, Returns and Refunds and Shipping Information.",
+    )
+    
+    return tool_lookup_docs
+
 def initialize_chain():
     # Load from both local assets and database
     doc_ids, docs = load_docs()
+    # react_agent_chain = ReactAgentForLocalAssetsRouting().chain
     first_chain = initialize_docs_routing()
+
     # The storage layer for the parent documents
     store = InMemoryByteStore()
     id_key = "doc_id"

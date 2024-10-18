@@ -144,10 +144,10 @@ def initialize_docs_routing():
         "destination": route_chain,  # "animal" or "vegetable"
         "input": lambda x: get_input_value(x),  # pass through input query
     } | RunnableLambda(
-        lambda x: destination_chains[get_destination_value(x)],
+        lambda x: destination_chains["faqs" if x["destination"] == "DEFAULT" else x["destination"]],
     )
-    return chain
 
+    return chain
 def get_input_value(x):
     logging.info(f"Debugging value of x: {x}")
     # Check if x is a dictionary (normal case)
@@ -171,23 +171,4 @@ def get_input_value(x):
             logging.info(f"x is not a dictionary, it is of type {type(x)}")
             # Add further handling based on your application's needs
             raise TypeError("Expected x to be a dictionary")
-def get_destination_value(x):
-    logging.info(f"Debugging value of x: {x}")
-    # Check if x is a dictionary (normal case)
-    if isinstance(x, dict):
-        logging.info("x is a dictionary.")
-
-        if "destination" in x:
-            logging.info(f"Destination is: {x['destination']}")
-            if x["destination"] == "DEFAULT":
-                return "faqs"
-            return x["destination"]  # Return the destination chain
-        else:
-            logging.info("No 'destination' found in x.")
-            return "faqs"
-    # If it's not a dictionary, just return a default or handle the error
-    else:
-        logging.info(f"x is not a dictionary, it is of type {type(x)}")
-        # Add further handling based on your application's needs
-        return "faqs"
             

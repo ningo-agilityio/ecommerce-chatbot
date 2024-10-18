@@ -1,3 +1,4 @@
+import logging
 from dotenv import load_dotenv, find_dotenv
 import os
 import openai
@@ -54,7 +55,7 @@ prompt = ChatPromptTemplate.from_messages([
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
 
-chain = prompt | model
+# chain = prompt | model
 
 agent_chain = RunnablePassthrough.assign(
     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
