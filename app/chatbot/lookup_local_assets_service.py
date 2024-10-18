@@ -32,6 +32,7 @@ from langchain.tools.retriever import create_retriever_tool
 # Separated built-in modules
 from app.chatbot.documents_loader import load_docs
 from app.chatbot.docs_prompt_routing import initialize_docs_routing
+from app.chatbot.react_agent import ReactAgentForLocalAssetsRouting
 
 def initialize_retriever_tool():
     doc_ids, docs = load_docs()
@@ -63,20 +64,12 @@ def initialize_retriever_tool():
 def initialize_chain():
     # Load from both local assets and database
     doc_ids, docs = load_docs()
-    # react_agent_chain = ReactAgentForLocalAssetsRouting().chain
-    first_chain = initialize_docs_routing()
+    first_chain = ReactAgentForLocalAssetsRouting().chain
+    # first_chain = initialize_docs_routing()
 
     # The storage layer for the parent documents
     store = InMemoryByteStore()
     id_key = "doc_id"
-
-    context_prompt = """Learn this context about faqs, order process, products information, returns and refunds and shipping information
-    Context:
-    {context}
-    
-    Question: 
-    {input}
-    Result:"""
 
     documents = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=200
@@ -98,10 +91,7 @@ def initialize_chain():
         context_content = [f"{doc.page_content}" for doc in sub_docs]
         return ("\n".join(context_content))
 
-    # Context prompt
-    prompt = ChatPromptTemplate.from_template(context_prompt)
-
-    return RunnablePassthrough.assign(context=RunnableLambda(lambda x: get_retriever(x))) | prompt | first_chain
+    return RunnablePassthrough.assign(context=RunnableLambda(lambda x: get_retriever(x))) | first_chain
 
 class LookupLocalAssetsService:
   chain: Any
