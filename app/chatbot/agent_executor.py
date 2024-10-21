@@ -49,7 +49,7 @@ tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
 model = ChatOpenAI(temperature=0, streaming=True).bind(functions=functions)
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are helpful but sassy assistant for a shoes shop. If there is any question about price, title, description or product information please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
+    ("system", "You are helpful but sassy assistant for a cake shop. If there is any question about price, title, description or product information please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
     MessagesPlaceholder(variable_name="chat_history"),
     ("user", "{input}"),
     MessagesPlaceholder(variable_name="agent_scratchpad")
