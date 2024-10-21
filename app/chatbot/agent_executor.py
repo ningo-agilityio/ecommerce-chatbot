@@ -11,9 +11,8 @@ from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.prompts import MessagesPlaceholder
 from langchain.agents.format_scratchpad import format_to_openai_functions
-from langchain.schema.agent import AgentFinish
 from langchain.schema.runnable import RunnablePassthrough
-from langchain.agents import AgentExecutor
+from langchain.agents import AgentExecutor, create_react_agent
 from langchain.schema import HumanMessage
 
 from app.chatbot.tools.tools import create_tools
@@ -47,24 +46,65 @@ def _handle_error(error) -> str:
 custom_memory = CustomConversationMemory()
 tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
-model = ChatOpenAI(temperature=0, streaming=True).bind(functions=functions)
+model = ChatOpenAI(temperature=0, streaming=True, model="gpt-4o-mini").bind(functions=functions)
+
+###### Normal agent
+# prompt = ChatPromptTemplate.from_messages([
+#     ("system", "You are helpful but sassy assistant for a cake shop. If there is any question about price, title, description or product information please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
+#     MessagesPlaceholder(variable_name="chat_history"),
+#     ("user", "{input}"),
+#     MessagesPlaceholder(variable_name="agent_scratchpad")
+# ])
+
+# agent_chain = RunnablePassthrough.assign(
+#     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
+# ) | prompt | model | OpenAIFunctionsAgentOutputParser()
+# agent_executor = AgentExecutor(
+#     agent=agent_chain, 
+#     tools=tools, 
+#     verbose=True,
+#     handle_parsing_errors=_handle_error
+# )
+
+###### React agent
+prompt_template = """
+You are a smart AI assistant that can help with different types of e-commerce queries.
+You can use the context given to you to answer the question.
+You have access to the following tools:
+
+{tools}
+- search_on_local_assets is good at searching for questions about faqs, order process, returns and refunds, shipping information.
+- search_sql_data is helpful for querying product information namely price, title, description
+- search_online_products is good for querying data for mousse cake and mini cake
+- search_wikipedia is a good assistant to search for irrelevant questions about product
+When providing an answer, ensure to return only one of the following:
+\n\n\n
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Final Answer: the final answer is the response from tool after proceeding
+
+Begin!
+
+Question: {input}
+Thought:{agent_scratchpad}
+"""
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are helpful but sassy assistant for a cake shop. If there is any question about price, title, description or product information please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
-    MessagesPlaceholder(variable_name="chat_history"),
-    ("user", "{input}"),
-    MessagesPlaceholder(variable_name="agent_scratchpad")
+    ("system", prompt_template),
+    ("user", "{input}")
 ])
-
-agent_chain = RunnablePassthrough.assign(
-    agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
-) | prompt | model | OpenAIFunctionsAgentOutputParser()
-agent_executor = AgentExecutor(
-    agent=agent_chain, 
-    tools=tools, 
-    verbose=True,
-    handle_parsing_errors=_handle_error
+react_agent = create_react_agent(
+    llm=model,
+    prompt=prompt,
+    tools=tools
 )
-
+agent_executor = AgentExecutor(
+    agent=react_agent, 
+    tools=tools,
+    verbose=True,
+    handle_parsing_errors=True,
+    max_iterations = 5 # useful when agent is stuck in a loop
+)
 def run_with_memory(input_text, callback):
     # Load conversation history and include in input
     memory_variables = custom_memory.load_memory_variables({"input": input_text})
