@@ -46,16 +46,15 @@ def _handle_error(error) -> str:
 custom_memory = CustomConversationMemory()
 tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
-model = ChatOpenAI(temperature=0, streaming=True, model="gpt-4o-mini").bind(functions=functions)
+model = ChatOpenAI(temperature=0, model="gpt-4o-mini", streaming=True).bind(functions=functions)
 
 ###### Normal agent
 # prompt = ChatPromptTemplate.from_messages([
-#     ("system", "You are helpful but sassy assistant for a cake shop. If there is any question about price, title, description or product information please let search_sql_data do it. And if there is any question about mousse cake or mini cake, please let search_online_products do it."),
+#     ("system", "You are helpful but sassy assistant for a cake shop."),
 #     MessagesPlaceholder(variable_name="chat_history"),
 #     ("user", "{input}"),
 #     MessagesPlaceholder(variable_name="agent_scratchpad")
 # ])
-
 # agent_chain = RunnablePassthrough.assign(
 #     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
 # ) | prompt | model | OpenAIFunctionsAgentOutputParser()
@@ -68,36 +67,31 @@ model = ChatOpenAI(temperature=0, streaming=True, model="gpt-4o-mini").bind(func
 
 ###### React agent
 prompt_template = """
-You are a smart AI assistant that can help with different types of e-commerce queries.
-You can use the context given to you to answer the question.
-You have access to the following tools:
+Answer the following questions as best you can. You have access to the following tools:
 
 {tools}
-- search_on_local_assets is good at searching for questions about faqs, order process, returns and refunds, shipping information.
-- search_sql_data is helpful for querying product information namely price, title, description
-- search_online_products is good for querying data for mousse cake and mini cake
-- search_wikipedia is a good assistant to search for irrelevant questions about product
-When providing an answer, ensure to return only one of the following:
-\n\n\n
+
+Use the following format:
+
 Question: the input question you must answer
 Thought: you should always think about what to do
 Action: the action to take, should be one of [{tool_names}]
-Final Answer: the final answer is the response from tool after proceeding
+Action Input: the input to the action
+Observation: the result of the action
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
 
 Begin!
 
 Question: {input}
 Thought:{agent_scratchpad}
 """
-prompt = ChatPromptTemplate.from_messages([
-    ("system", prompt_template),
-    ("user", "{input}")
-])
+prompt = ChatPromptTemplate.from_template(prompt_template)
 react_agent = create_react_agent(
     llm=model,
     prompt=prompt,
     tools=tools
-)
+) 
 agent_executor = AgentExecutor(
     agent=react_agent, 
     tools=tools,
@@ -105,6 +99,7 @@ agent_executor = AgentExecutor(
     handle_parsing_errors=True,
     max_iterations = 5 # useful when agent is stuck in a loop
 )
+
 def run_with_memory(input_text, callback):
     # Load conversation history and include in input
     memory_variables = custom_memory.load_memory_variables({"input": input_text})
