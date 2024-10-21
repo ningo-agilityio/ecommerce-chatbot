@@ -30,9 +30,9 @@ from langchain_core.runnables.base import RunnableLambda
 from langchain.tools.retriever import create_retriever_tool
 
 # Separated built-in modules
-from app.chatbot.documents_loader import load_docs
-from app.chatbot.docs_prompt_routing import initialize_docs_routing
-from app.chatbot.react_agent import ReactAgentForLocalAssetsRouting
+from app.chatbot.tools.search_on_local_assets.documents_loader import load_docs
+from app.chatbot.tools.search_on_local_assets.docs_prompt_routing import initialize_docs_routing
+from app.chatbot.samples.react_agent import ReactAgentForLocalAssetsRouting
 
 def initialize_retriever_tool():
     doc_ids, docs = load_docs()
@@ -64,8 +64,7 @@ def initialize_retriever_tool():
 def initialize_chain():
     # Load from both local assets and database
     doc_ids, docs = load_docs()
-    first_chain = ReactAgentForLocalAssetsRouting().chain
-    # first_chain = initialize_docs_routing()
+    first_chain = initialize_docs_routing()
 
     # The storage layer for the parent documents
     store = InMemoryByteStore()

@@ -2,9 +2,9 @@ import wikipedia
 from langchain.tools import tool
 from pydantic import BaseModel, Field
 import logging
-from app.chatbot.google_shopping_service import GoogleShoppingService
-from app.chatbot.lookup_local_assets_service import LookupLocalAssetsService
-from app.chatbot.query_products_sql_data_service import QueryProductsSQLDataService
+from app.chatbot.tools.search_online_products import GoogleShoppingService
+from app.chatbot.tools.search_on_local_assets.main import LookupLocalAssetsService
+from app.chatbot.tools.search_sql_data import QueryProductsSQLDataService
 
 from wikipedia.exceptions import PageError, DisambiguationError
 
@@ -22,7 +22,8 @@ class QuerySchemaInput(BaseModel):
 
 @tool(args_schema=QuerySchemaInput)
 def search_wikipedia(query: str) -> str:
-    """Run Wikipedia search and get page summaries."""
+    """You are a very good at search and get page summaries for questions which are not relevant to product, faqs, order process, returns and refunds, shipping information. When you don't know the accurate answer to a question you admit \
+        that you don't know."""
     page_titles = wikipedia.search(query)
     summaries = []
     for page_title in page_titles[: 3]:
@@ -42,7 +43,7 @@ def search_wikipedia(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_online_products(query: str) -> str:
-    """Fetch current products list rely on provider keywords."""
+    """You are great at responding questions about mousse cake or mini cake. Fetch current products from google api service rely on provider keywords. If you can't find the result, please look up search_sql_data"""
     responses = []
     try:
         results = google_shopping_service.search(query)
@@ -57,7 +58,7 @@ def search_online_products(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_on_local_assets(query: str) -> str:
-    """Search keyword on local assets faqs.txt and data in Sqlite"""
+    """You have an excellent knowledge of questions about faqs, order process, returns and refunds, shipping information. Search keyword from faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt"""
     result = ''
     try:
         response = local_assets_service.search(query)
@@ -75,7 +76,7 @@ def search_on_local_assets(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_sql_data(query: str) -> str:
-    """Search keyword on sql data"""
+    """You are an excellent for product information assistant which will provide title, description, price of product information from SQL data. If you can't find the result, please look up search_online_products"""
     result = ''
     try:
         response = query_products_sql_data_service.search(query)

@@ -23,7 +23,6 @@ class RouteQuery(TypedDict):
     destination: Literal[
         "faqs", 
         "order process", 
-        "product information", 
         "returns and refunds",
         "shipping information"
     ]
@@ -43,16 +42,6 @@ then put them together to answer accurately the broader question.
 
 When you don't know the answer to a question you admit\
 that you don't know.
-
-Here is a question:
-{input}"""
-
-products_information_template = """You are a very good at product information. \
-You have an excellent knowledge of and understanding of people,\
-events and contexts from a range of product categories. \
-You have the ability to think, reflect, discuss and \
-evaluate product information.
-If there are no products available, you will search from search_online_products or search_sql_data tools. 
 
 Here is a question:
 {input}"""
@@ -86,11 +75,6 @@ prompt_infos = [
         "name": "order process", 
         "description": "Good for answering order process questions", 
         "prompt_template": order_process_template
-    },
-    {
-        "name": "product information", 
-        "description": "Good for answering product information questions", 
-        "prompt_template": products_information_template
     },
     {
         "name": "returns and refunds", 

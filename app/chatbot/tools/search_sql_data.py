@@ -25,8 +25,9 @@ class QueryProductsSQLDataService:
     execute_query = QuerySQLDataBaseTool(db=db)
     write_query = create_sql_query_chain(llm, db)
     answer_prompt = PromptTemplate.from_template(
-        """Given the following user question, corresponding SQL query, and SQL result, answer the user question
-        about product information especially cake details namely title (name), description, price
+        """Given the following user question, corresponding SQL query, and SQL result, 
+        answer the user question about product information especially cake details 
+        namely title (name), description, price
 
         Question: {input}
         SQL Query: {query}

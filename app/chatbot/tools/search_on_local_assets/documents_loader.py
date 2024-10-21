@@ -1,8 +1,9 @@
+import logging
 import os
 import sys
 from typing import Any, Iterator, List
 import uuid
-sys.path.append('../')
+sys.path.append('../../../')
 from database.documents import init_and_retrieve_documents
 from langchain_core.document_loaders import BaseLoader
 from langchain_core.documents import Document
@@ -55,7 +56,7 @@ def load_docs():
     records = init_and_retrieve_documents()
     loaders = [
         # Keep only FAQs in document
-        CustomDocumentLoader("assets/faqs.txt", None),
+        CustomDocumentLoader("../../assets/faqs.txt", None),
         CustomDocumentLoader("", records),
     ]
     docs = []

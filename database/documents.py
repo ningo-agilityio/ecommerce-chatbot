@@ -56,7 +56,6 @@ def get_full_file_path(file_name:str):
 def load_order_process():
     with open(get_full_file_path('assets/order-process.json'), 'r') as file:
         data = json.load(file)
-
     # Insert data into the database
     cursor.execute('INSERT INTO documents (name, content) VALUES (?, ?)', 
         ('order_process', ', '.join([str(x) for x in data['steps']])))
@@ -97,7 +96,8 @@ def init_and_retrieve_documents():
     records = check_existing_documents()
     if (records is False):
         load_order_process()
-        load_products_information()
+        # Remove to avoid conflict data - get back to to check later 
+        # load_products_information()
         load_returns_and_refunds()
         load_shipping_information()
         conn.commit()  # Save changes
