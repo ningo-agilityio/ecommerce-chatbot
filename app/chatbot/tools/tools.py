@@ -22,8 +22,9 @@ class QuerySchemaInput(BaseModel):
 
 @tool(args_schema=QuerySchemaInput)
 def search_wikipedia(query: str) -> str:
-    """You are a very good at search and get page summaries for questions which are not relevant to product, faqs, order process, returns and refunds, shipping information. When you don't know the accurate answer to a question you admit \
-        that you don't know."""
+    """You are a very good at answering questions \
+    which are irrelevant to product, faqs, order process, returns and refunds, shipping information. \
+    You're able to search and get page summaries."""
     page_titles = wikipedia.search(query)
     summaries = []
     for page_title in page_titles[: 3]:
