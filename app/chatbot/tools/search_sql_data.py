@@ -27,7 +27,7 @@ class QueryProductsSQLDataService:
     answer_prompt = PromptTemplate.from_template(
         """Given the following user question, corresponding SQL query, and SQL result, 
         answer the user question about product information especially cake details 
-        namely title (name), description, price
+        namely title (name), description, price from the **'products' table**. Please summarize and display the final answer. 
 
         Question: {input}
         SQL Query: {query}

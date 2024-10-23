@@ -22,9 +22,8 @@ class QuerySchemaInput(BaseModel):
 
 @tool(args_schema=QuerySchemaInput)
 def search_wikipedia(query: str) -> str:
-    """You are a very good at answering questions \
-    which are irrelevant to product, faqs, order process, returns and refunds, shipping information. \
-    You're able to search and get page summaries."""
+    """Search Wikipedia for questions unrelated to products, FAQs, order processes, returns, refunds, or shipping. 
+    Retrieve up to three page summaries based on the query."""
     page_titles = wikipedia.search(query)
     summaries = []
     for page_title in page_titles[: 3]:
@@ -44,7 +43,8 @@ def search_wikipedia(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_online_products(query: str) -> str:
-    """You are great at responding questions about mousse cake or mini cake. Fetch current products from google api service rely on provider keywords. If you can't find the result, please look up search_sql_data"""
+    """Search online products, especially mousse or mini cakes, using the Google API. 
+    If no results are found, fallback to SQL data search."""
     responses = []
     try:
         results = google_shopping_service.search(query)
@@ -59,7 +59,8 @@ def search_online_products(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_on_local_assets(query: str) -> str:
-    """You have an excellent knowledge of questions about faqs, order process, returns and refunds, shipping information. Search keyword from faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt"""
+    """Search local assets (from vector store) for FAQs, order processes, returns, refunds, or shipping information. 
+    Sources: faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt."""
     result = ''
     try:
         response = local_assets_service.search(query)
@@ -77,7 +78,8 @@ def search_on_local_assets(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_sql_data(query: str) -> str:
-    """You are an excellent for product information assistant which will provide title, description, price of product information from SQL data. If you can't find the result, please look up search_online_products"""
+    """Search the SQL database for product details (title, description, price). 
+    If no result is found, fallback to online product search."""
     result = ''
     try:
         response = query_products_sql_data_service.search(query)

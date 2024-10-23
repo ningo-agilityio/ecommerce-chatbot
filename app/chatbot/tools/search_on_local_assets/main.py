@@ -32,7 +32,6 @@ from langchain.tools.retriever import create_retriever_tool
 # Separated built-in modules
 from app.chatbot.tools.search_on_local_assets.documents_loader import load_docs
 from app.chatbot.tools.search_on_local_assets.docs_prompt_routing import initialize_docs_routing
-from app.chatbot.samples.react_agent import ReactAgentForLocalAssetsRouting
 
 def initialize_retriever_tool():
     doc_ids, docs = load_docs()
