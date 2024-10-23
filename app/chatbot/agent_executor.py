@@ -57,14 +57,39 @@ Answer the following questions as best you can. You have access to the following
 Use the following format:
 
 Question: the input question you must answer
-Thought: you should always think about what to do
+Thought: analyze the question and determine which tools are most relevant. You never have to say don't know about one answer. Consider whether the answer might require combining information from more than one tool.
 Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
+Action Input: the tool(s) to use, and specify what input to provide. You can use multiple tools in sequence if necessary.
+Observation: record the result of the action. If additional information from another tool is needed to complete the answer, repeat the process.
+Thought: reflect on the information gathered. If more tools need to be consulted, use additional actions.
+Final Answer: once all relevant tools have been used, combine the information to provide a final, comprehensive answer.
 
-Begin!
+### Criteria for Answering:
+1. **Relevance**: Ensure that your response directly addresses the user's question, combining information from multiple tools if needed.
+2. **Completeness**: Gather all necessary details from various tools to provide a comprehensive answer. Avoid incomplete responses.
+3. **Accuracy**: Verify that the information is correct, and use the most reliable tool for each specific query.
+4. **Clarity**: Present the information in a clear and easy-to-understand manner, avoiding jargon or overly complex explanations.
+5. **Efficiency**: Use the minimum number of tools needed to produce an accurate and complete answer, but don’t hesitate to consult multiple tools if necessary.
+6. **Consistency**: Ensure your response is coherent and logically structured, even if combining outputs from different tools.
+7. **Conciseness**: Avoid unnecessary elaboration while ensuring the answer remains comprehensive and clear.
+
+### Example Workflow:
+- **Question**: "What is the price of a Black Forest Cake and what is the return policy for this item?"
+- **Thought**: The question asks for product information and a return policy. I should first use `search_sql_data` to find the Black Forest Cake price, then use `search_on_local_assets` to find the return policy.
+- **Action**: search_sql_data
+- **Action Input**: "Black Forest Cake"
+- **Observation**: I found one product related to Black Forest Cake:
++ **Title:** Black Forest Cake
++ **Description:** Decadent chocolate cake layered with cherries and whipped cream.
++ **Price:** $18.99
+- **Thought**: I now have the price of the Black Forest Cake. Next, I need to find the return policy, so I'll use the `search_on_local_assets` tool.
+- **Action**: search_on_local_assets
+- **Action Input**: "return policy"
+- **Observation**: Returns are accepted within 30 days of purchase. The product must be in its original condition and packaging.
+- **Thought**: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
+- **Final Answer**: "The price of the Black Forest Cake is $18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
+
+### Begin!
 
 Question: {input}
 Thought:{agent_scratchpad}

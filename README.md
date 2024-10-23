@@ -73,3 +73,12 @@ d. Then fill the id up into .env file
    ```
    $ uvicorn app.main:app --reload
    ```
+
+**Notes**: Some questions to test chatbot:
+- Tell me about order process
+- Tell me about faqs
+- Give me price of Black Forest Cake
+- Provide me information about Mini Cake with Chocolate
+- What is LangChain?
+- Guide me how to order Mini Cake
+- What is the price of a Black Forest Cake and what is the return policy for this item?
