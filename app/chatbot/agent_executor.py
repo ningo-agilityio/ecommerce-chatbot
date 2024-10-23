@@ -48,23 +48,6 @@ tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
 model = ChatOpenAI(temperature=0, model="gpt-4o-mini", streaming=True).bind(functions=functions)
 
-###### Normal agent
-# prompt = ChatPromptTemplate.from_messages([
-#     ("system", "You are helpful but sassy assistant for a cake shop."),
-#     MessagesPlaceholder(variable_name="chat_history"),
-#     ("user", "{input}"),
-#     MessagesPlaceholder(variable_name="agent_scratchpad")
-# ])
-# agent_chain = RunnablePassthrough.assign(
-#     agent_scratchpad= lambda x: format_to_openai_functions(x["intermediate_steps"])
-# ) | prompt | model | OpenAIFunctionsAgentOutputParser()
-# agent_executor = AgentExecutor(
-#     agent=agent_chain, 
-#     tools=tools, 
-#     verbose=True,
-#     handle_parsing_errors=_handle_error
-# )
-
 ###### React agent
 prompt_template = """
 Answer the following questions as best you can. You have access to the following tools:
