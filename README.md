@@ -58,17 +58,13 @@ d. Then fill the id up into .env file
    ```
 
 6. To run test:
-- For e-commerce app:
+- With promptfoo:
    ```
-   $ cd tests/e-commerce
+   $ cd tests/promptfoo
    $ npm run test
    ```
-- For translation app:
-   ```
-   $ cd tests/translation
-   $ npm run test
-   ```
-
+- With LangSmith:
+  
 7. Run Fast api:
    ```
    $ uvicorn app.main:app --reload
