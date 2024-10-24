@@ -2,7 +2,7 @@ name: 'Prompt Evaluation'
 on:
   pull_request:
     paths:
-      - 'tests/e-commerce/**'
+      - 'tests/promptfoo/**'
 jobs:
   evaluate:
     runs-on: ubuntu-latest
@@ -43,11 +43,11 @@ jobs:
             node-version: 22
             openai-api-key: ${{ secrets.OPENAI_API_KEY }}
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            prompts: 'tests/e-commerce/prompts/prompt.txt'
-            config: 'tests/e-commerce/promptfooconfig.yaml'
+            prompts: 'tests/promptfoo/prompts/prompt.txt'
+            config: 'tests/promptfoo/promptfooconfig.yaml'
             cache-path: ~/.cache/promptfoo
       - run: |
-          cd 'tests/e-commerce'
+          cd 'tests/promptfoo'
           npm install
           /usr/local/bin/npx promptfoo@latest --version
           npm run test
