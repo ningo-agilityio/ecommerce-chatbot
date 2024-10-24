@@ -8,10 +8,6 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.utils.function_calling import convert_to_openai_function
-from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain.prompts import MessagesPlaceholder
-from langchain.agents.format_scratchpad import format_to_openai_functions
-from langchain.schema.runnable import RunnablePassthrough
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain.schema import HumanMessage
 
