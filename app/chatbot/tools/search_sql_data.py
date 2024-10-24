@@ -13,6 +13,13 @@ from langchain_core.runnables import RunnablePassthrough
 
 from database.documents import init_products
 
+# We can use SQLToolKit to get db context easier
+def get_database_context(db):
+    # Fetch columns from 'products' table
+    query = "SELECT name FROM PRAGMA_TABLE_INFO('products')"
+    result = db.run(query)
+    return [row[0] for row in result]
+
 class QueryProductsSQLDataService:
   chain: Any
   def __init__(self) -> None:
@@ -21,7 +28,7 @@ class QueryProductsSQLDataService:
 
     db = SQLDatabase.from_uri("sqlite:///ecommerce_chatbot.db")
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-    
+    context = get_database_context(db)
     execute_query = QuerySQLDataBaseTool(db=db)
     write_query = create_sql_query_chain(llm, db)
     answer_prompt = PromptTemplate.from_template(
@@ -32,8 +39,11 @@ class QueryProductsSQLDataService:
         Question: {input}
         SQL Query: {query}
         SQL Result: {result}
+        Context: {context}
         Answer: """
     )
+    # Bind db context into prompt
+    answer_prompt.partial(context=context)
     answer = answer_prompt | StrOutputParser()
     chain = (
         RunnablePassthrough.assign(query=write_query).assign(
