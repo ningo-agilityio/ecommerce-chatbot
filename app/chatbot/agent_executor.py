@@ -42,7 +42,14 @@ def _handle_error(error) -> str:
 custom_memory = CustomConversationMemory()
 tools = create_tools()
 functions = [convert_to_openai_function(f) for f in tools]
-model = ChatOpenAI(temperature=0, model="gpt-4o-mini", streaming=True).bind(functions=functions)
+model = ChatOpenAI(
+    temperature=0.2, # Setting the temperature low (closer to 0) ensures that the responses are more deterministic and less random, which is ideal when handling product-related queries, pricing, and other factual information
+    model="gpt-4o-mini", 
+    streaming=True,
+    max_tokens=300, # Limiting the tokens to 256–512 ensures the responses are clear and not too verbose, especially when summarizing product details
+    timeout=5, # A 5 to 10 seconds timeout ensures a balance between responsiveness and allowing the model sufficient time to generate accurate responses.
+    max_retries=3 # Increasing max_retries to 3 allows the system to try a couple more times if it encounters a transient issue, ensuring better uptime and response consistency.
+).bind(functions=functions)
 
 ###### React agent
 prompt_template = """
@@ -70,20 +77,20 @@ Final Answer: once all relevant tools have been used, combine the information to
 7. **Conciseness**: Avoid unnecessary elaboration while ensuring the answer remains comprehensive and clear.
 
 ### Example Workflow:
-- **Question**: "What is the price of a Black Forest Cake and what is the return policy for this item?"
-- **Thought**: The question asks for product information and a return policy. I should first use `search_sql_data` to find the Black Forest Cake price, then use `search_on_local_assets` to find the return policy.
-- **Action**: search_sql_data
-- **Action Input**: "Black Forest Cake"
-- **Observation**: I found one product related to Black Forest Cake:
-+ **Title:** Black Forest Cake
-+ **Description:** Decadent chocolate cake layered with cherries and whipped cream.
-+ **Price:** $18.99
-- **Thought**: I now have the price of the Black Forest Cake. Next, I need to find the return policy, so I'll use the `search_on_local_assets` tool.
-- **Action**: search_on_local_assets
-- **Action Input**: "return policy"
-- **Observation**: Returns are accepted within 30 days of purchase. The product must be in its original condition and packaging.
-- **Thought**: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
-- **Final Answer**: "The price of the Black Forest Cake is $18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
+- Question: "What is the price of a Black Forest Cake and what is the return policy for this item?"
+- Thought: The question asks for product information and a return policy. I should first use `search_sql_data` to find the Black Forest Cake price, then use `search_on_local_assets` to find the return policy.
+- Action: search_sql_data
+- Action Input: "Black Forest Cake"
+- Observation: I found one product related to Black Forest Cake:
++ Title: Black Forest Cake
++ Description: Decadent chocolate cake layered with cherries and whipped cream.
++ Price: $18.99
+- Thought: I now have the price of the Black Forest Cake. Next, I need to find the return policy, so I'll use the `search_on_local_assets` tool.
+- Action: search_on_local_assets
+- Action Input: "return policy"
+- Observation: Returns are accepted within 30 days of purchase. The product must be in its original condition and packaging.
+- Thought: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
+- Final Answer: "The price of the Black Forest Cake is $18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
 
 ### Begin!
 
