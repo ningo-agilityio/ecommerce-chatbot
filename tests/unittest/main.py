@@ -14,9 +14,9 @@ class ChatbotTestCases(unittest.TestCase):
         # This will run once before all the test methods
         cls.main_agent_chatbot = MainAgentChatbot()
 
-    # def tearDown(self):
-    #     # Clean up after each test if necessary
-    #     self.agent_executor.memory.clear()
+    def tearDown(self):
+        # Clean up after each test if necessary
+        self.main_agent_chatbot.custom_memory.clear()
 
     def expect_response(self, response, dataset):
         for key_word in dataset['expectation_values']:
