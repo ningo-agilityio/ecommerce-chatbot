@@ -2,7 +2,7 @@ questions = [
   "What is LangChain?", 
   "What is the payment methods?",
   "What are the FAQs about cake products?",
-  "What is the price of Pumpkin Spice Cake?",
+  "What is the information of Strawberry Shortcake?",
   "Can you give me information about Mini Cake with Chocolate?",
   "Can you guide me how to order a Mini Cake?",
   "What is the information about a Black Forest Cake and return policy?"
@@ -34,10 +34,10 @@ chatbot_datasets = [
     }
   },
   {
-    "question": "What is the price of Pumpkin Spice Cake?",
+    "question": "What is the information of Strawberry Shortcake?",
     "expectation_values": ["14.99"],
     "output": {
-      "answer": "The price of the Pumpkin Spice Cake is $14.99. It is a seasonal pumpkin cake with cinnamon frosting and a dash of nutmeg",
+      "answer": "The Strawberry Shortcake is priced at $14.99 and consists of layers of sponge cake with fresh strawberries and whipped cream.",
       "expected_steps": ["search_sql_data"],
     }
   },
