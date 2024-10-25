@@ -35,7 +35,7 @@ chatbot_datasets = [
   },
   {
     "input": "What is the information of Strawberry Shortcake?",
-    "expectation_values": ["14.99"],
+    "expectation_values": ["$14.99"],
     "output": {
       "answer": "The Strawberry Shortcake is priced at $14.99 and consists of layers of sponge cake with fresh strawberries and whipped cream.",
       "expected_steps": ["search_sql_data"],
@@ -43,7 +43,7 @@ chatbot_datasets = [
   },
   {
     "input": "Can you give me information about Mini Cake with Chocolate?",
-    "expectation_values": ["10.99", "in stock"],
+    "expectation_values": ["$10.99", "in stock"],
     "output": {
       "answer": "The Mini Cake with Chocolate is priced at $10.99 and is described simply as a Mini Cake with Chocolate",
       "expected_steps": ["search_sql_data", "search_online_products"],
@@ -59,7 +59,7 @@ chatbot_datasets = [
   },
   {
     "input": "What is the information about a Black Forest Cake and return policy?",
-    "expectation_values": ["18.99", "whipped cream", "cherries", "chocolate"],
+    "expectation_values": ["$18.99", "whipped cream", "cherries", "chocolate"],
     "output": {
       "answer": "Cakes generally have a very limited return window, often allowing returns only on the same day of purchase or if they are in their original condition. It is advisable to check with the specific retailer for their exact return policy regarding cakes.",
       "expected_steps": ["search_sql_data", "search_on_local_assets"],

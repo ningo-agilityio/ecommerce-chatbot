@@ -53,20 +53,20 @@ class MainAgentChatbot:
             model="gpt-4o-mini", 
             streaming=True,
             max_tokens=300, # Limiting the tokens to 256–512 ensures the responses are clear and not too verbose, especially when summarizing product details
-            timeout=5, # A 5 to 10 seconds timeout ensures a balance between responsiveness and allowing the model sufficient time to generate accurate responses.
-            max_retries=3 # Increasing max_retries to 3 allows the system to try a couple more times if it encounters a transient issue, ensuring better uptime and response consistency.
+            # timeout=5, # A 5 to 10 seconds timeout ensures a balance between responsiveness and allowing the model sufficient time to generate accurate responses.
+            # max_retries=3 # Increasing max_retries to 3 allows the system to try a couple more times if it encounters a transient issue, ensuring better uptime and response consistency.
         ).bind(functions=functions)
 
         ###### React agent
         prompt_template = """
-        Answer the following questions as best you can. You have access to the following tools:
+        Answer the following questions as best you can. You never have to say I don't know about one answer. You have access to the following tools:
 
         {tools}
 
         Use the following format:
 
         Question: the input question you must answer
-        Thought: analyze the question and determine which tools are most relevant. You never have to say don't know about one answer. Consider whether the answer might require combining information from more than one tool.
+        Thought: analyze the question and determine which tools are most relevant. Consider whether the answer might require combining information from more than one tool.
         Action: the action to take, should be one of [{tool_names}]
         Action Input: the tool(s) to use, and specify what input to provide. You can use multiple tools in sequence if necessary.
         Observation: record the result of the action. If additional information from another tool is needed to complete the answer, repeat the process.
@@ -88,15 +88,15 @@ class MainAgentChatbot:
         - Action: search_sql_data
         - Action Input: "Black Forest Cake"
         - Observation: I found one product related to Black Forest Cake:
+        + Price: 18.99
         + Title: Black Forest Cake
         + Description: Decadent chocolate cake layered with cherries and whipped cream.
-        + Price: $18.99
         - Thought: I now have the price of the Black Forest Cake. Next, I need to find the return policy, so I'll use the `search_on_local_assets` tool.
         - Action: search_on_local_assets
         - Action Input: "return policy"
         - Observation: Returns are accepted within 30 days of purchase. The product must be in its original condition and packaging.
         - Thought: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
-        - Final Answer: "The price of the Black Forest Cake is $18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
+        - Final Answer: "The price of the Black Forest Cake is 18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
 
         ### Begin!
 
@@ -114,6 +114,7 @@ class MainAgentChatbot:
             tools=tools,
             verbose=True,
             handle_parsing_errors=True,
+            return_intermediate_steps=True,
             max_iterations = 5 # useful when agent is stuck in a loop
         )
         self.agent_executor = agent_executor
