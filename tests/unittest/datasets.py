@@ -19,14 +19,14 @@ chatbot_datasets = [
   },
   {
     "input": "What is the payment methods?",
-    "expectation_values": ["Credit/Debit Card", "PayPal", "Apple Pay", "Google Pay"],
+    "expectation_values": ["Credit/Debit Card", "PayPal", "Apple Pay"],
     "output": {
       "answer": "The payment methods can vary depending on the eCommerce platform or store but common options typically include: Credit/Debit Card, Digital Wallets, Bank Transfers, Buy Now, Pay Later, Cash on Delivery (COD)",
       "expected_steps": ["search_on_local_assets"]
     }
   },
   {
-    "question": "Tell me about faqs",
+    "input": "Tell me about faqs",
     "expectation_values": ["payment methods", "return policy", "shipping"],
     "output": {
       "answer": "What are the shipping options?",
@@ -34,7 +34,7 @@ chatbot_datasets = [
     }
   },
   {
-    "question": "What is the information of Strawberry Shortcake?",
+    "input": "What is the information of Strawberry Shortcake?",
     "expectation_values": ["14.99"],
     "output": {
       "answer": "The Strawberry Shortcake is priced at $14.99 and consists of layers of sponge cake with fresh strawberries and whipped cream.",
@@ -42,7 +42,7 @@ chatbot_datasets = [
     }
   },
   {
-    "question": "Can you give me information about Mini Cake with Chocolate?",
+    "input": "Can you give me information about Mini Cake with Chocolate?",
     "expectation_values": ["10.99", "in stock"],
     "output": {
       "answer": "The Mini Cake with Chocolate is priced at $10.99 and is described simply as a Mini Cake with Chocolate",
@@ -50,7 +50,7 @@ chatbot_datasets = [
     }
   },
   {
-    "question": "Can you guide me how to order a Mini Cake?",
+    "input": "Can you guide me how to order a Mini Cake?",
     "expectation_values": ["Browse", "checkout", "payment method", "confirm"],
     "output": {
       "answer": "To order a Mini Cake, follow these steps: Browse the Options, Select Your Cake, Add to Cart, Review Your Order, Provide Delivery Information, Enter Payment Details, Confirm Your Order",
@@ -58,7 +58,7 @@ chatbot_datasets = [
     }
   },
   {
-    "question": "What is the information about a Black Forest Cake and return policy?",
+    "input": "What is the information about a Black Forest Cake and return policy?",
     "expectation_values": ["18.99", "whipped cream", "cherries", "chocolate"],
     "output": {
       "answer": "Cakes generally have a very limited return window, often allowing returns only on the same day of purchase or if they are in their original condition. It is advisable to check with the specific retailer for their exact return policy regarding cakes.",
