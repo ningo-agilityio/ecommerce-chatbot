@@ -108,7 +108,6 @@ def init_and_retrieve_documents():
 def insert_products():
     with open(get_full_file_path('assets/products.json'), 'r') as file:
         products = json.load(file)
-        logging.info(products)
         for item in products:
             cursor.execute('INSERT INTO products (title, description, price) VALUES (?, ?, ?)', 
                     (item['title'], item['description'], item['price']))

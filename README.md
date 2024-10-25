@@ -58,13 +58,24 @@ d. Then fill the id up into .env file
    ```
 
 6. To run test:
+- Run unit tests:
+   ```
+   $ cd tests/unittest
+   $ python main.py
+   ```
+
 - With promptfoo:
    ```
    $ cd tests/promptfoo
    $ npm run test
    ```
+
 - With LangSmith:
-  
+   ```
+   $ cd tests/langsmith
+   $ python main.py
+   ```
+
 7. Run Fast api:
    ```
    $ uvicorn app.main:app --reload
@@ -72,9 +83,11 @@ d. Then fill the id up into .env file
 
 **Notes**: Some questions to test chatbot:
 - Tell me about order process
-- Tell me about faqs
-- Give me price of Black Forest Cake
+- Tell me about faqs about cake products
+- Give me price of Pumpkin Spice Cake
 - Provide me information about Mini Cake with Chocolate
 - What is LangChain?
 - Guide me how to order Mini Cake
 - What is the price of a Black Forest Cake and what is the return policy for this item?
+- Compare its price with Matcha Green Tea Cake
+- Any same models as Matcha Green Tea Cake?
