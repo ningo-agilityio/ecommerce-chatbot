@@ -2,12 +2,12 @@ import logging
 from typing import Any
 from fastapi import APIRouter
 from pydantic import BaseModel, validator, Field
-from app.chatbot.agent_executor import run_with_memory
+from app.chatbot.agent_executor import MainAgentChatbot
 from langchain.callbacks.base import BaseCallbackHandler
 from fastapi.responses import StreamingResponse
 
 router = APIRouter()
-
+main_agent_chatbot = MainAgentChatbot()
 # Pydantic model for user input
 class QueryInput(BaseModel):
     keyword: str = Field(..., description="Keyword or phrases to search...")
@@ -37,10 +37,10 @@ class StreamApiCallbackHandler(BaseCallbackHandler):
 @router.post("/stream")
 def search_in_stream(input: QueryInput):
     stream_handler = StreamApiCallbackHandler()
-    run_with_memory(input.keyword, stream_handler)
+    main_agent_chatbot.run_with_memory(input.keyword, stream_handler)
     return StreamingResponse(stream_handler.token_generator(), media_type="text/plain")
 
 @router.post("/search")
 def search(input: QueryInput):
-    return run_with_memory(input.keyword, None)['output']
+    return main_agent_chatbot.run_with_memory(input.keyword, None)['output']
 

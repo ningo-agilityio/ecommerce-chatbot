@@ -3,12 +3,13 @@ import logging
 from typing import Any, Dict
 
 sys.path.append('../../')
-from app.chatbot.agent_executor import run_with_memory
+from app.chatbot.agent_executor import MainAgentChatbot
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
 class EcommerceChatbot:
+    agent: Any
     def __init__(self, options: Dict[str, Any]):
         # The caller may override Provider ID (e.g. when using multiple instances of the same provider)
         self.providerId = options.get('id', 'E-commerce chatbot provider')
@@ -16,10 +17,11 @@ class EcommerceChatbot:
         # The config object contains any options passed to the provider in the config file.
         self.config = options.get('config', {})
         
+        self.agent = MainAgentChatbot()
         pass
 
     def get_response(self, user_input):
-        return run_with_memory(user_input, None)['output']
+        return self.agent.run_with_memory(user_input, None)['output']
 
     def id(self) -> str:
         return self.providerId

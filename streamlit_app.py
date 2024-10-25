@@ -1,5 +1,5 @@
 from typing import Any
-from app.chatbot.agent_executor import run_with_memory
+from app.chatbot.agent_executor import MainAgentChatbot
 import streamlit as st
 
 from dotenv import load_dotenv
@@ -29,6 +29,7 @@ class StreamlitCallbackHandler(BaseCallbackHandler):
             self.placeholder.markdown(final_answer)
             # st.session_state.chat_history.append(AIMessage(content=final_answer)) 
 
+main_agent_chatbot = MainAgentChatbot()
 def get_response(user_query):
     response_placeholder = st.empty()
 
@@ -36,7 +37,7 @@ def get_response(user_query):
     stream_handler = StreamlitCallbackHandler(response_placeholder)
 
     # Step 3: Pass the callback handler to the agent executor invoke method
-    return run_with_memory(user_query, stream_handler)['output']
+    return main_agent_chatbot.run_with_memory(user_query, stream_handler)['output']
 
 #### Main app
 # Show title and description.
