@@ -22,21 +22,30 @@ class QuerySchemaInput(BaseModel):
 
 @tool(args_schema=QuerySchemaInput)
 def search_wikipedia(query: str) -> str:
-    """Search Wikipedia for questions unrelated to products, FAQs, order processes, returns, refunds, or shipping. 
-    Retrieve up to three page summaries based on the query."""
+    """You can search from wikipedia source for the most popular results responding to the question. You have never said 'I don't know'.  If there are anything not relevant to below keywords, let search_on_local_assets do it:
+     - products
+     - faqs (FAQs)
+     - order processes
+     - returns and refunds
+     - shipping
+    Finally, you can retrieve up to three page summaries based on the query."""
     page_titles = wikipedia.search(query)
     summaries = []
     for page_title in page_titles[: 3]:
         try:
-            wiki_page =  wikipedia.page(title=page_title, auto_suggest=False)
+            wiki_page =  wikipedia.page(
+                title=page_title, 
+                auto_suggest=False
+            )
             summaries.append(f"Page: {page_title}\nSummary: {wiki_page.summary}")
         except (PageError, DisambiguationError) as e:
-            logging.error(f"Searching query fail for input: {query}. Error: {e}")
+            logging.error(f"DisambiguationError searching query fail for input: {query}. Error: {e}")
             pass
-            return ""  # Return None or a specific message
+            return "No good Wikipedia Search Result was found"  # Return None or a specific message
         except Exception as e:
-            logging.error(f"Searching query fail for input: {query}. Error: {e}")
-            raise
+            logging.error(f"Exception searching query fail for input: {query}. Error: {e}")
+            pass
+            return "No good Wikipedia Search Result was found"
     if not summaries:
         return "No good Wikipedia Search Result was found"
     return "\n\n".join(summaries)
@@ -59,7 +68,7 @@ def search_online_products(query: str) -> str:
 
 @tool(args_schema=QuerySchemaInput)
 def search_on_local_assets(query: str) -> str:
-    """Search local assets (from vector store) for FAQs, order processes, returns, refunds, or shipping information. 
+    """Search local assets (from vector store) for faqs (FAQs), order processes, returns, refunds, or shipping information. 
     Sources: faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt."""
     result = ''
     try:

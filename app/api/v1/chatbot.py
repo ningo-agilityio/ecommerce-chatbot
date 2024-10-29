@@ -1,5 +1,4 @@
 import logging
-from typing import Any
 from fastapi import APIRouter
 from pydantic import BaseModel, validator, Field
 from app.chatbot.agent_executor import MainAgentChatbot

@@ -1,4 +1,5 @@
 import logging
+from app.chatbot.parser.agent_output_parser import LLMOutputParser
 from dotenv import load_dotenv, find_dotenv
 import os
 import openai
@@ -82,11 +83,11 @@ class MainAgentChatbot:
         6. **Consistency**: Ensure your response is coherent and logically structured, even if combining outputs from different tools.
         7. **Conciseness**: Avoid unnecessary elaboration while ensuring the answer remains comprehensive and clear.
 
-        ### Example Workflow:
+        ### Example Workflow 1:
         - Question: "What is the price of a Black Forest Cake and what is the return policy for this item?"
         - Thought: The question asks for product information and a return policy. I should first use `search_sql_data` to find the Black Forest Cake price, then use `search_on_local_assets` to find the return policy.
         - Action: search_sql_data
-        - Action Input: "Black Forest Cake"
+        - Action Input: "Price of Black Forest Cake"
         - Observation: I found one product related to Black Forest Cake:
         + Price: 18.99
         + Title: Black Forest Cake
@@ -98,24 +99,36 @@ class MainAgentChatbot:
         - Thought: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
         - Final Answer: "The price of the Black Forest Cake is 18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
 
+        ### Example Workflow 2:
+        - Question: "What is LangChain?"
+        - Thought: The question is not relevant to e-commerce or product, hence I will use search_wikipedia to seek the results.
+        - Action: search_wikipedia
+        - Action Input: "What is LangChain?"
+        - Observation: LangChain is a software framework that helps facilitate the integration of large language models (LLMs) into applications. Its use-cases include document analysis and summarization, chatbots, and code analysis.
+        - Thought: I now know about LangChain. I will combine the answer.
+        - Final Answer: "LangChain is a software framework that helps facilitate the integration of large language models (LLMs) into applications. Its use-cases include document analysis and summarization, chatbots, and code analysis."
+
         ### Begin!
 
         Question: {input}
         Thought:{agent_scratchpad}
         """
         prompt = ChatPromptTemplate.from_template(prompt_template)
+        llm_parser = LLMOutputParser()
         react_agent = create_react_agent(
             llm=model,
             prompt=prompt,
-            tools=tools
+            tools=tools,
+            output_parser=llm_parser
         ) 
+        
         agent_executor = AgentExecutor(
             agent=react_agent, 
             tools=tools,
             verbose=True,
             handle_parsing_errors=True,
             return_intermediate_steps=True,
-            max_iterations = 5 # useful when agent is stuck in a loop
+            max_iterations = 5, # useful when agent is stuck in a loop
         )
         self.agent_executor = agent_executor
         self.custom_memory = custom_memory
@@ -134,7 +147,7 @@ class MainAgentChatbot:
             response = self.agent_executor.invoke(full_input)
         # Save context (user input and AI response)
         self.custom_memory.save_context({"input": input_text}, {"output": response})
-
+        logging.info(response)
         return response
 
 # Test conversation
