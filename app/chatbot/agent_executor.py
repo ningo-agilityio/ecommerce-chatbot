@@ -15,40 +15,18 @@ from langchain.agents import AgentExecutor, create_react_agent
 from langchain.schema import HumanMessage
 from app.chatbot.memory.window_memory import ConversationBufferWindowMemory
 from app.chatbot.tools.tools import create_tools
-
-class CustomConversationMemory:
-    def __init__(self):
-        self.conversation_history = []
-
-    def load_memory_variables(self, inputs):
-        # Return memory history as list of BaseMessage
-        formatted_history = [
-            {"role": "user", "content": message['output']} if isinstance(message, HumanMessage)
-            else {"role": "assistant", "content": message['output']}
-            for message in self.conversation_history
-        ]
-        return {"chat_history": formatted_history}
-
-    def save_context(self, inputs, outputs):
-        # Save user input and bot response
-        bot_response = outputs.get("output", "")
-        self.conversation_history.append(bot_response)
-
-    def clear(self):
-        # Clear the stored conversation history
-        self.conversation_history = []
+from langchain_community.chat_message_histories import ChatMessageHistory
 
 def _handle_error(error) -> str:
     print("_handle_error_agent")
     return str(error)[:50]
 
+# Define a global memory to avoid re-initializing for each query
+window_memory = ConversationBufferWindowMemory(k=5)
+
 class MainAgentChatbot:
-    custom_memory: Any
-    window_memory: Any
     agent_executor: Any
     def __init__(self) -> None:
-        custom_memory = CustomConversationMemory()
-        window_memory = ConversationBufferWindowMemory(k=5)
         tools = create_tools()
         functions = [convert_to_openai_function(f) for f in tools]
         model = ChatOpenAI(
@@ -122,7 +100,6 @@ class MainAgentChatbot:
             prompt=prompt,
             tools=tools,
             output_parser=llm_parser,
-            # state_modifier=window_history.state_modifier
         ) 
         
         agent_executor = AgentExecutor(
@@ -135,15 +112,14 @@ class MainAgentChatbot:
             max_iterations = 5, # useful when agent is stuck in a loop
         )
         self.agent_executor = agent_executor
-        self.custom_memory = custom_memory
-        self.window_memory = window_memory
+        # self.custom_memory = custom_memory
+        # self.window_memory = window_memory
+        # self.buffer_memory = buffer_memory
 
     def run_with_memory(self, input_text, callback):
         # Load conversation history and include in input
-        memory_variables = self.window_memory.load_memory_variables(input_text)
-        # memory_variables = self.custom_memory.load_memory_variables({"input": input_text})
-        input_message = HumanMessage(content=input_text)
-        full_input = {"input": input_text, "messages": [input_message], **memory_variables}
+        memory_variables = window_memory.load_memory_variables(input_text)
+        full_input = {"input": input_text, **memory_variables}
         
         if callback is not None:
             chain_with_callbacks = self.agent_executor.with_config(callbacks=[callback])
@@ -152,10 +128,7 @@ class MainAgentChatbot:
             response = chain_with_callbacks.invoke(full_input)
         else:
             response = self.agent_executor.invoke(full_input)
-        logging.info(response)
-        # Save context (user input and AI response)
-        # self.custom_memory.save_context({"input": input_text}, {"output": response})
-        logging.info(response)
+        # logging.info(response)
         return response
 
 # Test conversation

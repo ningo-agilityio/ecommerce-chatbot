@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Any, Optional
 from langchain_core.memory import BaseMemory
 from langchain.memory.chat_memory import BaseChatMemory
 from langchain_community.chat_message_histories import ChatMessageHistory
@@ -10,8 +10,8 @@ class ConversationBufferWindowMemory(BaseChatMemory):
     def __init__(self, k: int = 5):
         buffer = ChatMessageHistory()
         super().__init__(k=k, buffer=buffer)
-        self.k = k  # Set buffer size
-        self.buffer = buffer  # Initialize an empty message history
+        self.k = k # Set buffer size
+        self.buffer = buffer # Initialize an empty message history
 
     @property
     def memory_variables(self):
@@ -23,9 +23,6 @@ class ConversationBufferWindowMemory(BaseChatMemory):
         return {"chat_history": self._get_recent_conversations()}
 
     def save_context(self, inputs, outputs):
-        logging.info("=======Saving conversation history===")
-        logging.info(inputs)
-        logging.info(outputs)
         # Append new interactions to the buffer
         self.buffer.add_user_message(inputs["input"])
         self.buffer.add_ai_message(outputs["output"])
@@ -39,7 +36,13 @@ class ConversationBufferWindowMemory(BaseChatMemory):
         self.buffer.clear()
 
     def _get_recent_conversations(self):
-        logging.info("====_get_recent_conversations===")
-        logging.info(self.buffer)
         # Convert buffer messages to text for memory variable use
         return "\n".join([msg.content for msg in self.buffer.messages])
+
+# window_memory = ConversationBufferWindowMemory(k=5)
+# window_memory.save_context({"input": "Hello, how are you?"}, {"output": "I'm good, thank you!"})
+# window_memory.save_context({"input": "Tell me a joke."}, {"output": "Why did the chicken cross the road?"})
+
+# # Load the conversation history to verify it
+# history = window_memory.load_memory_variables({})
+# print("Loaded conversation history:", history)
