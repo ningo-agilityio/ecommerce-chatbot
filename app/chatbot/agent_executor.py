@@ -13,7 +13,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain.schema import HumanMessage
-
+from app.chatbot.memory.window_memory import ConversationBufferWindowMemory
 from app.chatbot.tools.tools import create_tools
 
 class CustomConversationMemory:
@@ -44,9 +44,11 @@ def _handle_error(error) -> str:
 
 class MainAgentChatbot:
     custom_memory: Any
+    window_memory: Any
     agent_executor: Any
     def __init__(self) -> None:
         custom_memory = CustomConversationMemory()
+        window_memory = ConversationBufferWindowMemory(k=5)
         tools = create_tools()
         functions = [convert_to_openai_function(f) for f in tools]
         model = ChatOpenAI(
@@ -109,8 +111,8 @@ class MainAgentChatbot:
         - Final Answer: "LangChain is a software framework that helps facilitate the integration of large language models (LLMs) into applications. Its use-cases include document analysis and summarization, chatbots, and code analysis."
 
         ### Begin!
-
         Question: {input}
+        Previous conversation history: {chat_history}
         Thought:{agent_scratchpad}
         """
         prompt = ChatPromptTemplate.from_template(prompt_template)
@@ -119,7 +121,8 @@ class MainAgentChatbot:
             llm=model,
             prompt=prompt,
             tools=tools,
-            output_parser=llm_parser
+            output_parser=llm_parser,
+            # state_modifier=window_history.state_modifier
         ) 
         
         agent_executor = AgentExecutor(
@@ -128,15 +131,19 @@ class MainAgentChatbot:
             verbose=True,
             handle_parsing_errors=True,
             return_intermediate_steps=True,
+            memory=window_memory,
             max_iterations = 5, # useful when agent is stuck in a loop
         )
         self.agent_executor = agent_executor
         self.custom_memory = custom_memory
+        self.window_memory = window_memory
 
     def run_with_memory(self, input_text, callback):
         # Load conversation history and include in input
-        memory_variables = self.custom_memory.load_memory_variables({"input": input_text})
-        full_input = {"input": input_text, **memory_variables}
+        memory_variables = self.window_memory.load_memory_variables(input_text)
+        # memory_variables = self.custom_memory.load_memory_variables({"input": input_text})
+        input_message = HumanMessage(content=input_text)
+        full_input = {"input": input_text, "messages": [input_message], **memory_variables}
         
         if callback is not None:
             chain_with_callbacks = self.agent_executor.with_config(callbacks=[callback])
@@ -145,8 +152,9 @@ class MainAgentChatbot:
             response = chain_with_callbacks.invoke(full_input)
         else:
             response = self.agent_executor.invoke(full_input)
+        logging.info(response)
         # Save context (user input and AI response)
-        self.custom_memory.save_context({"input": input_text}, {"output": response})
+        # self.custom_memory.save_context({"input": input_text}, {"output": response})
         logging.info(response)
         return response
 
