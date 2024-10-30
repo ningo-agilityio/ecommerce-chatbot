@@ -40,30 +40,43 @@ class MainAgentChatbot:
 
         ###### React agent
         prompt_template = """
-        Answer the following questions as best you can. You never have to say I don't know about one answer. You have access to the following tools:
+        Answer the following questions as best you can. You have access to the following tools:
 
         {tools}
 
         Use the following format:
 
         Question: the input question you must answer
-        Thought: analyze the question and determine which tools are most relevant. Consider whether the answer might require combining information from more than one tool.
+        Thought: you should always think about what to do
         Action: the action to take, should be one of [{tool_names}]
-        Action Input: the tool(s) to use, and specify what input to provide. You can use multiple tools in sequence if necessary.
-        Observation: record the result of the action. If additional information from another tool is needed to complete the answer, repeat the process.
-        Thought: reflect on the information gathered. If more tools need to be consulted, use additional actions.
-        Final Answer: once all relevant tools have been used, combine the information to provide a final, comprehensive answer.
+        Action Input: the input to the action
+        Observation: the result of the action
+        Thought: I now know the final answer
+        Final Answer: the final answer to the original input question
 
-        ### Criteria for Answering:
-        1. **Relevance**: Ensure that your response directly addresses the user's question, combining information from multiple tools if needed.
-        2. **Completeness**: Gather all necessary details from various tools to provide a comprehensive answer. Avoid incomplete responses.
-        3. **Accuracy**: Verify that the information is correct, and use the most reliable tool for each specific query.
-        4. **Clarity**: Present the information in a clear and easy-to-understand manner, avoiding jargon or overly complex explanations.
-        5. **Efficiency**: Use the minimum number of tools needed to produce an accurate and complete answer, but don’t hesitate to consult multiple tools if necessary.
-        6. **Consistency**: Ensure your response is coherent and logically structured, even if combining outputs from different tools.
-        7. **Conciseness**: Avoid unnecessary elaboration while ensuring the answer remains comprehensive and clear.
+        ### Few shots samples:
+        #### Sample 1:
+        - Question: "Tell me about order process"
+        - Thought: The question asks for order process, so I will use `search_on_local_assets` to find order process.
+        - Action: search_on_local_assets
+        - Action Input: "order process"
+        - Observation: The order process involves browsing and selecting products, adding them to the cart, proceeding to checkout, entering shipping and billing information, choosing a payment method, reviewing and confirming the order, and finally placing the order successfully.
+        - Thought: I found full information about order process, I will summarize that information and give the concise answer
+        - Final Answer: "The order process involves browsing and selecting products, adding them to the cart, proceeding to checkout, entering shipping and billing information, choosing a payment method, reviewing and confirming the order, and finally placing the order successfully."
+        
+        #### Sample 2:
+        - Question: "What is the price of a Black Forest Cake"
+        - Thought: The question asks for product information, so I will use `search_sql_data` to find order process.
+        - Action: search_sql_data
+        - Action Input: price of a Black Forest Cake"
+        - Observation: I found one product related to Black Forest Cake:
+        + Price: 18.99
+        + Title: Black Forest Cake
+        + Description: Decadent chocolate cake layered with cherries and whipped cream.
+        - Thought: I now have the price of the Black Forest Cake, I will summarize that information and give the accurate answer
+        - Final Answer: "The price of the Black Forest Cake is 18.99"
 
-        ### Example Workflow 1:
+        #### Sample 3:
         - Question: "What is the price of a Black Forest Cake and what is the return policy for this item?"
         - Thought: The question asks for product information and a return policy. I should first use `search_sql_data` to find the Black Forest Cake price, then use `search_on_local_assets` to find the return policy.
         - Action: search_sql_data
@@ -79,7 +92,7 @@ class MainAgentChatbot:
         - Thought: I now know the return policy. I will combine this information with the price, title and description of the Black Forest Cake to provide a complete answer.
         - Final Answer: "The price of the Black Forest Cake is 18.99. Decadent chocolate cake layered with cherries and whipped cream. The return policy allows returns within 30 days of purchase, as long as the product is in its original condition and packaging."
 
-        ### Example Workflow 2:
+        #### Sample 4:
         - Question: "What is LangChain?"
         - Thought: The question is not relevant to e-commerce or product, hence I will use search_wikipedia to seek the results.
         - Action: search_wikipedia
@@ -88,7 +101,8 @@ class MainAgentChatbot:
         - Thought: I now know about LangChain. I will combine the answer.
         - Final Answer: "LangChain is a software framework that helps facilitate the integration of large language models (LLMs) into applications. Its use-cases include document analysis and summarization, chatbots, and code analysis."
 
-        ### Begin!
+        Begin!
+
         Question: {input}
         Previous conversation history: {chat_history}
         Thought:{agent_scratchpad}
@@ -112,9 +126,6 @@ class MainAgentChatbot:
             max_iterations = 5, # useful when agent is stuck in a loop
         )
         self.agent_executor = agent_executor
-        # self.custom_memory = custom_memory
-        # self.window_memory = window_memory
-        # self.buffer_memory = buffer_memory
 
     def run_with_memory(self, input_text, callback):
         # Load conversation history and include in input

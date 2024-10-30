@@ -21,8 +21,8 @@ FINAL_ANSWER_AND_PARSABLE_ACTION_ERROR_MESSAGE = (
 class LLMOutputParser(AgentOutputParser):
 
     def parse(self, text) -> Union[AgentAction, AgentFinish]:
-        logging.info("Custom parser output:")
-        logging.info(text)
+        # logging.info("Custom parser output:")
+        # logging.info(text)
         includes_answer = FINAL_ANSWER_ACTION in text
         regex = (
             r"Action\s*\d*\s*:[\s]*(.*?)[\s]*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
