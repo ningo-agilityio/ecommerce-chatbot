@@ -28,7 +28,7 @@ def search_wikipedia(query: str) -> str:
      - order processes
      - returns and refunds
      - shipping
-    Finally, you can retrieve up to three page summaries based on the query."""
+    Finally, you can retrieve page summaries based on the query."""
     page_titles = wikipedia.search(query)
     summaries = []
     for page_title in page_titles[: 3]:
