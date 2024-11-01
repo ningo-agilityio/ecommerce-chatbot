@@ -40,7 +40,7 @@ class MainAgentChatbot:
             max_tokens=500, # Limiting the tokens to 256–512 ensures the responses are clear and not too verbose, especially when summarizing product details
             # timeout=10, # A 5 to 10 seconds timeout ensures a balance between responsiveness and allowing the model sufficient time to generate accurate responses.
             # max_retries=3 # Increasing max_retries to 3 allows the system to try a couple more times if it encounters a transient issue, ensuring better uptime and response consistency.
-        ).bind(functions=functions)
+        )
 
         ###### React agent
         prompt_template = """
