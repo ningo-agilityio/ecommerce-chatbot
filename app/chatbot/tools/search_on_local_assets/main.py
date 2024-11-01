@@ -2,15 +2,7 @@
 import logging
 from typing import Any
 
-# import os
-# import openai
-# from dotenv import load_dotenv, find_dotenv
-
-# _ = load_dotenv(find_dotenv()) # read local .env file
-# openai.api_key = os.environ['OPENAI_API_KEY']
-
 # Langchain stuffs
-# from app.chatbot.react_agent import ReactAgentForLocalAssetsRouting
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 from langchain.storage import InMemoryByteStore
@@ -106,5 +98,3 @@ class LookupLocalAssetsService:
     return self.chain.invoke({
       "input": query,
     })
-# local_assets_service = LookupLocalAssetsService()
-# local_assets_service.search("Tell me about order process")
