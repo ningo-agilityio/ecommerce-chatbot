@@ -69,7 +69,7 @@ def search_online_products(query: str) -> str:
 @tool(args_schema=QuerySchemaInput)
 def search_on_local_assets(query: str) -> str:
     """Search local assets (from vector store) for faqs (FAQs), order processes, returns, refunds, or shipping information. 
-    Sources: faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt."""
+    Sources: faqs.txt, order-process.json, returns-and-refunds.csv, shipping-info.txt. The answer from this tool mustn't be summarized, keep information as details as possible."""
     result = ''
     try:
         response = local_assets_service.search(query)

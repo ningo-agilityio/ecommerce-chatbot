@@ -50,7 +50,7 @@ chatbot_datasets = [
     }
   },
   {
-    "input": "Can you guide me how to order a Mini Cake?",
+    "input": "Guide me how to order a Mini Cake?",
     "expectation_values": ["Browse", "checkout", "payment method", "confirm"],
     "output": {
       "answer": "To order a Mini Cake, follow these steps: Browse the Options, Select Your Cake, Add to Cart, Review Your Order, Provide Delivery Information, Enter Payment Details, Confirm Your Order",
