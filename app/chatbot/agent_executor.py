@@ -1,5 +1,4 @@
 import logging
-from app.chatbot.parser.agent_output_parser import LLMOutputParser
 from dotenv import load_dotenv, find_dotenv
 import os
 import openai
@@ -8,14 +7,19 @@ from typing import Any
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key = os.environ['OPENAI_API_KEY']
 
+# From LangChain
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain.schema import HumanMessage
+from langchain_community.chat_message_histories import ChatMessageHistory
+
+# From app modules
+from app.chatbot.parser.agent_output_parser import LLMOutputParser
 from app.chatbot.memory.window_memory import ConversationBufferWindowMemory
 from app.chatbot.tools.tools import create_tools
-from langchain_community.chat_message_histories import ChatMessageHistory
+from app.chatbot.error_handlers.main import error_handler
 
 def _handle_error(error) -> str:
     print("_handle_error_agent")
@@ -65,28 +69,6 @@ class MainAgentChatbot:
         7. **Conciseness**: Avoid unnecessary elaboration while ensuring the answer remains comprehensive and clear.
         8. **Comparison**: To compare two products, you should retrieve data one by one from database and then summarize the comparison as a table.
 
-        ## Few shots samples
-            ### Sample 1:
-            - For the question "What is the price of a Black Forest Cake and what is the return policy for this item?"
-            - Firstly, you must select tool `search_sql_data` to query information about Black Forest Cake
-            - If search_sql_data returns no answer, you can loop on tool search_online_products to find the answer.
-            - Secondly, you have to pick tool `search_on_local_assets` to query information about return policy
-            - If you found any entry from database and retrieve any relevant information, you can show the concise answer.
-
-            ### Sample 2:
-            - User enters the question "Tell me about order process"
-            - The question asks for order process, so I will use `search_on_local_assets` to find order process.
-            - If search_on_local_assets returns no answer, you can loop on another tools to find the best answer.
-            
-            ### Sample 3:
-            - User wants to compare price of two products or suggest the same models of one product
-            - You must use tool `search_sql_data` to query information about all products
-            - Then summarize the answer as a table and show the accurate answer
-
-            ### Sample 4:
-            - User randomly enters the question "What is LangChain?" which is not relevant to e-commerce.
-            - You have to use tool search_wikipedia as the highest priority option to seek the accurate answer.
-            - Once you found the answer, you can summarize and show it to user
 
         ## Use the following format:
         To use a tool, please use the following format:
@@ -141,19 +123,16 @@ class MainAgentChatbot:
         memory_variables = window_memory.load_memory_variables(input_text)
         full_input = {"input": input_text, **memory_variables}
         
-        if callback is not None:
-            chain_with_callbacks = self.agent_executor.with_config(callbacks=[callback])
+        try:
+            if callback is not None:
+                chain_with_callbacks = self.agent_executor.with_config(callbacks=[callback])
 
-            # Run the conversation
-            response = chain_with_callbacks.invoke(full_input)
-        else:
-            response = self.agent_executor.invoke(full_input)
-        # logging.info(response)
-        return response
-
-# Test conversation
-# run_with_memory("How to order an online product?")
-# run_with_memory("What is langchain?")
-# run_with_memory("mini cake")
-# run_with_memory("mousse")
-# run_with_memory("order process")
+                # Run the conversation
+                response = chain_with_callbacks.invoke(full_input)
+            else:
+                response = self.agent_executor.invoke(full_input)
+            # logging.info(response)
+            
+            return response
+        except Exception as e:
+            error_handler(e)
