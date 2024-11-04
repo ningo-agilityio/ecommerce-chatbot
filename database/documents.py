@@ -3,9 +3,6 @@ import sqlite3
 import os
 import json
 import csv
-from langchain_core.globals import set_llm_cache
-from langchain_community.cache import SQLiteCache
-set_llm_cache(SQLiteCache(database_path=".langchain.db"))
 # Connect to SQLite (creates a new database file if it doesn't exist)
 conn = sqlite3.connect('ecommerce_chatbot.db')
 

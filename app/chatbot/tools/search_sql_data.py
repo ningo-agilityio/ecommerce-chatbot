@@ -10,8 +10,10 @@ from langchain_community.agent_toolkits import create_sql_agent
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
-
+from langchain_core.globals import set_llm_cache
+from langchain_community.cache import SQLiteCache
 from database.documents import init_products
+# set_llm_cache(SQLiteCache(database_path="ecommerce_chatbot.db"))
 
 # We can use SQLToolKit to get db context easier
 def get_database_context(db):
