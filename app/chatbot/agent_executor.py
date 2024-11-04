@@ -51,9 +51,9 @@ class MainAgentChatbot:
         {tools}
         
         ## Tool Usage Guidance:
-        - **search_sql_data**: MUST utilize this tool first for searching product information like price, title and description in the database.
-        - **search_on_local_assets**: ALWAYS use this tool to answer general questions about faqs, order process, shipping information, return and refunds. The answer from this tool mustn't be summarized, keep information as details as possible (keep data in vector store) and don't combine with reasoning knowledge.
-        - **search_online_products**: MUST utilize call this tool as subsequence step if **search_sql_data** return no answer about product information
+        - **search_sql_data**: MUST utilize this tool first for searching product information like price, title and description in the database. If the keywords are about keywords 'mousse' or 'mini cake', you must transfer to search_online_products to retrieve the answer.
+        - **search_on_local_assets**: ALWAYS use this tool to answer general questions about faqs, order process, shipping information, return and refunds. The answer from this tool mustn't be summarized, strictly keep original information as the highest priority as possible (keep data in vector store) and don't combine with reasoning knowledge.
+        - **search_online_products**: MUST utilize call if user query for keywords 'mousse' or 'mini cake'. This tool can be subsequence step if **search_sql_data** return no answer about product information
         - **search_wikipedia**: SHOULD call this tool to search for general questions which are not relevant to e-commerce or products.
         - If the tool returns many results, you are allowed to choose the best one as you think it matches the input mostly.
         - NEVER respond with "I don't have information" or similar phrases without trying ALL applicable tools.
