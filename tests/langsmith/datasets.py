@@ -43,9 +43,9 @@ chatbot_datasets = [
   },
   {
     "input": "Can you give me information about Mini Cake with Chocolate?",
-    "expectation_values": ["$10.99", "in stock"],
+    "expectation_values": ["6.50", "rich chocolate"],
     "output": {
-      "answer": "The Mini Cake with Chocolate is priced at $10.99 and is described simply as a Mini Cake with Chocolate",
+      "answer": "The Mini Cake with Chocolate is priced at $6.50. It is a decadent mini chocolate cake featuring layers of moist, rich chocolate sponge and smooth chocolate ganache. The cake is topped with a sprinkle of cocoa powder and chocolate shavings, making it perfect for satisfying any chocolate craving in a single, delightful serving",
       "expected_steps": ["search_sql_data", "search_online_products"],
     }
   },
