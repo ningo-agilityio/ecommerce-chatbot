@@ -172,6 +172,7 @@ ecommercechatbot-*.json
 google_api_key.json
 invoke.py
 ecommerce_chatbot.db
+.langchain.db
 .vercel
 .netlify
 .DS_Store
